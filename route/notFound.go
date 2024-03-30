@@ -15,11 +15,11 @@ var (
 			}
 		}()
 
-		data := map[string]interface{}{
-			"heading": "Error 404",
-			"title":   "Error 404 | Find Beautiful Designs",
-			"message": "The page you are looking for cannot be found.",
-		}
+		data := dataDefault()
+
+		data["heading"] = "Error 404"
+		data["page_title"] = data["heading"].(string) + " | " + data["site_title"].(string)
+		data["message"] = "The page you are looking for cannot be found."
 
 		w.WriteHeader(http.StatusNotFound)
 

@@ -139,7 +139,7 @@ body > .item_profile > .keywords li:last-of-type::after {
 }
 
 body .error {
-	margin-top: 2.5rem;
+	margin-top: 2rem;
 	text-align: center;
 }
 

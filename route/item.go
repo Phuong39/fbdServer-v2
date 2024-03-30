@@ -18,8 +18,6 @@ var (
 			}
 		}()
 
-		data := map[string]interface{}{}
-
 		storeName := bone.GetValue(r, "storeName")
 		hashedGUID := bone.GetValue(r, "itemHashedGUID")
 
@@ -32,8 +30,10 @@ var (
 			return
 		}
 
+		data := dataDefault()
+
 		data["item"] = item
-		data["title"] = html.UnescapeString(string(item.Title)) + " | " + "Find Beautiful Designs"
+		data["page_title"] = html.UnescapeString(string(item.Title)) + " | " + data["site_title"].(string)
 
 		err = template.Views.ExecuteTemplate(w, "item", "main", data)
 		if err != nil {

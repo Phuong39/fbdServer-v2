@@ -8,6 +8,7 @@ func dataDefault() (data map[string]interface{}) {
 	data = make(map[string]interface{})
 
 	environmentKeys := []string{
+		"site_domain",
 		"site_title",
 		"referral_site_domain",
 		"referral_site_title",

@@ -16,9 +16,9 @@ var (
 			}
 		}()
 
-		data := map[string]interface{}{
-			"title": "Find Beautiful Designs",
-		}
+		data := dataDefault()
+
+		data["page_title"] = data["site_title"]
 
 		items, err := model.ItemMultipleAtRandom(240)
 		if err != nil {
