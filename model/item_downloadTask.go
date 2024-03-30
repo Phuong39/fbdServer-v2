@@ -34,8 +34,8 @@ func init() {
 
 var (
 	itemsDownloadFromRemoteStoreQueryStrings = [...]string{
-		// "st=popularity&sp=0",
-		// "st=popularity&sp=1",
+		"st=popularity&sp=0",
+		"st=popularity&sp=1",
 		"st=popularity&sp=7",
 		"st=popularity&sp=30",
 		// "st=datecreated",
