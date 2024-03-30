@@ -178,11 +178,13 @@ func itemParseFromRemoteStore(rawItem *gofeed.Item, storeName string) (err error
 	publishTime := rawItem.PublishedParsed
 	title := template.HTML(rawItem.Title)
 	description := template.HTML(rawItem.Extensions["media"]["description"][0].Value)
-	keywords := strings.Split(rawItem.Extensions["media"]["keywords"][0].Value, ",")
+	keywordsString := strings.Split(rawItem.Extensions["media"]["keywords"][0].Value, ",")
 	priceString := rawItem.Extensions["media"]["price"][0].Value // dollar string
 
-	for i, k := range keywords {
-		keywords[i] = strings.TrimSpace(k)
+	keywords := make([]template.HTML, 0, len(keywordsString))
+
+	for i, k := range keywordsString {
+		keywords[i] = template.HTML(strings.TrimSpace(k))
 	}
 
 	if publishTime == nil {

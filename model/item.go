@@ -11,17 +11,17 @@ import (
 )
 
 type Item struct {
-	StoreName   string        `json:"n"`
-	LinkURL     string        `json:"l"`
-	ImageURL    string        `json:"i"`
-	GUID        string        `json:"g"`
-	HashedGUID  string        `json:"h"`
-	Title       template.HTML `json:"t"`
-	Description template.HTML `json:"d"`
-	Keywords    []string      `json:"k"`
-	PublishTime time.Time     `json:"p"`
-	SetTime     time.Time     `json:"s"`
-	Price       uint64        `json:"c"` // US cents
+	StoreName   string          `json:"n"`
+	LinkURL     string          `json:"l"`
+	ImageURL    string          `json:"i"`
+	GUID        string          `json:"g"`
+	HashedGUID  string          `json:"h"`
+	Title       template.HTML   `json:"t"`
+	Description template.HTML   `json:"d"`
+	Keywords    []template.HTML `json:"k"`
+	PublishTime time.Time       `json:"p"`
+	SetTime     time.Time       `json:"s"`
+	Price       uint64          `json:"c"` // US cents
 }
 
 func ItemMultipleAtRandom(n int) (items []*Item, err error) {
