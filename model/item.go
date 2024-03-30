@@ -1,6 +1,7 @@
 package model
 
 import (
+	"bytes"
 	"encoding/json"
 	"html/template"
 	"math/rand"
@@ -22,6 +23,15 @@ type Item struct {
 	PublishTime time.Time       `json:"p"`
 	SetTime     time.Time       `json:"s"`
 	Price       uint64          `json:"c"` // US cents
+}
+
+func ItemKey(hashedGUID string) []byte {
+	var buffer bytes.Buffer
+
+	buffer.WriteString("item_")
+	buffer.WriteString(hashedGUID)
+
+	return buffer.Bytes()
 }
 
 func ItemMultipleAtRandom(n int) (items []*Item, err error) {
@@ -60,12 +70,13 @@ func ItemAtRandom() (item *Item, found bool, err error) {
 }
 
 func ItemFromHashedGUID(hashedGUID string) (item *Item, found bool, err error) {
+	key := ItemKey(hashedGUID)
 	var value []byte
 
 	err = database.BadgerDB.View(func(txn *badger.Txn) (err2 error) {
 		var rawItem *badger.Item
 
-		rawItem, err2 = txn.Get([]byte(hashedGUID))
+		rawItem, err2 = txn.Get(key)
 		if err2 != nil {
 			if err2 == badger.ErrKeyNotFound {
 				return nil

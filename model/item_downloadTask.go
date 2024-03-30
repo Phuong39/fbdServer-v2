@@ -5,9 +5,7 @@ import (
 	"fmt"
 	"html/template"
 	"log"
-	"math/rand"
 	"net/url"
-	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -43,25 +41,20 @@ var (
 )
 
 func itemsDownloadAllFromRemoteStore() (err error) {
-	initStoresAllOnce.Do(initStoresAll)
-
-	fmt.Println("DONWLOADING 1")
-	stores := StoresAll[:]
-	fmt.Println("DONWLOADING 2")
+	stores := StoresAll()
 
 	// random sort
-	sort.Slice(stores, func(i, j int) bool {
-		return rand.Float64() >= 0.5
-	})
-	fmt.Println("DONWLOADING 3", len(stores))
+	// sort.Slice(stores, func(i, j int) bool {
+	// 	return rand.Float64() >= 0.5
+	// })
 
 	for _, store := range stores {
 		queryStrings := itemsDownloadFromRemoteStoreQueryStrings[:]
 
 		// random sort
-		sort.Slice(queryStrings, func(i, j int) bool {
-			return rand.Float64() >= 0.5
-		})
+		// sort.Slice(queryStrings, func(i, j int) bool {
+		// 	return rand.Float64() >= 0.5
+		// })
 
 		for _, q := range queryStrings {
 			if err = itemsDownloadFromRemoteStore(store, 1, q); err != nil {
@@ -93,13 +86,31 @@ func itemsDownloadFromRemoteStore(storeName string, pageNumber int, queryString 
 
 		parser := gofeed.NewParser()
 		feedURL := fmt.Sprintf(
-			"https://feed.zazzle.com/store/%s/rss?ps=%d&pg=%d&isz=medium",
+			"https://feed.zazzle.com/store/%s/rss?ps=%d&pg=%d&isz=huge",
 			storeName,
 			itemsDownloadPerFeed,
 			pageNumber,
 		)
 		if queryString != "" {
 			feedURL += "&" + queryString
+		}
+
+		localFeed, localFeedFound, err := FeedFind(feedURL)
+		if err != nil {
+			return
+		}
+		if localFeedFound && time.Since(localFeed.LastDownloadTime) < time.Hour*24*5 {
+			return
+		}
+
+		localFeed = &Feed{
+			Url:              feedURL,
+			LastDownloadTime: time.Now(),
+		}
+
+		err = localFeed.Save()
+		if err != nil {
+			return
 		}
 
 		feed, err := parser.ParseURL(feedURL)
@@ -116,21 +127,11 @@ func itemsDownloadFromRemoteStore(storeName string, pageNumber int, queryString 
 			return
 		}
 
-		// isNewDownloadFeedModel, downloadFeedModel, err := GetDownloadFeedFromURL(feedURL)
-		// if err != nil {
-		// 	panic(err)
-		// } else if !isNewDownloadFeedModel && downloadFeedModel.TooEarly() {
-		// 	return
-		// }
-
 		for i, l := 0, len(feed.Items); i < l; i++ {
 			if err = itemParseFromRemoteStore(feed.Items[i], storeName); err != nil {
 				return
 			}
 		}
-
-		// downloadFeedModel.UpdateLastDownloadTime()
-		// downloadFeedModel.Save()
 
 		return
 	}()
@@ -239,7 +240,8 @@ func itemParseFromRemoteStore(rawItem *gofeed.Item, storeName string) (err error
 	}
 
 	err = database.BadgerDB.Update(func(txn *badger.Txn) error {
-		entry := badger.NewEntry([]byte(item.HashedGUID), itemJSON).WithTTL(time.Hour * 24 * 7 * 26) // half a year
+		key := ItemKey(item.HashedGUID)
+		entry := badger.NewEntry(key, itemJSON).WithTTL(time.Hour * 24 * 7 * 26) // half a year
 		return txn.SetEntry(entry)
 	})
 

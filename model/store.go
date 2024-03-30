@@ -2,6 +2,7 @@ package model
 
 import (
 	"encoding/csv"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -11,15 +12,26 @@ import (
 type Store string
 
 var (
-	StoresAll         []string
-	initStoresAllOnce sync.Once
+	storesAllCached       []string
+	storesAllCachedInited bool
+	storesAllCachedMutex  sync.Mutex
 )
 
-func init() {
-	initStoresAllOnce.Do(initStoresAll)
-}
+func StoresAll() (stores []string) {
+	fmt.Println(storesAllCachedInited, storesAllCached)
+	if storesAllCachedInited {
+		stores = storesAllCached[:]
+		return
+	}
 
-func initStoresAll() {
+	defer storesAllCachedMutex.Unlock()
+	storesAllCachedMutex.Lock()
+
+	if storesAllCachedInited {
+		stores = storesAllCached[:]
+		return
+	}
+
 	f, err := os.Open(filepath.Join("data", "stores.csv"))
 	if err != nil {
 		panic(err)
@@ -33,6 +45,11 @@ func initStoresAll() {
 	}
 
 	for _, r := range records {
-		StoresAll = append(StoresAll, strings.TrimSpace(r[0]))
+		stores = append(stores, strings.TrimSpace(r[0]))
 	}
+
+	storesAllCached = stores[:]
+	storesAllCachedInited = true
+
+	return
 }
