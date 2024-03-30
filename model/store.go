@@ -5,15 +5,21 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
 )
 
 type Store string
 
 var (
-	StoresAll []string
+	StoresAll         []string
+	initStoresAllOnce sync.Once
 )
 
 func init() {
+	initStoresAllOnce.Do(initStoresAll)
+}
+
+func initStoresAll() {
 	f, err := os.Open(filepath.Join("data", "stores.csv"))
 	if err != nil {
 		panic(err)

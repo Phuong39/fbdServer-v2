@@ -1,10 +1,14 @@
+	{{ partial "partial/header" . }}
 <div class="item_profile">
-	<h1>{{ .item.Title }}</h1>
-	<h2>
-		<a href="https://www.zazzle.com/store/{{ .item.StoreName }}?rf=238606708185114783" target="_blank">
-			{{ .item.StoreName }}
-		</a>
-	</h2>
+
+	<hgroup class="item_headings">
+		<h3 class="item_title_heading">{{ .item.Title }}</h3>
+		<h4 class="item_store_heading">
+			<a href="https://www.zazzle.com/store/{{ .item.StoreName }}?rf=238606708185114783" target="_blank">
+				{{ .item.StoreName }}
+			</a>
+		</h4>
+	</hgroup>
 
 	<a href="{{ .item.LinkURL }}" target="_blank">
 		<img src="{{ .item.ImageURL }}" alt="{{ .item.Title }}" title="{{ .item.Title }}" />
@@ -13,8 +17,8 @@
 	<p class="description">{{ .item.Description }}</p>
 
 	<ul class="keywords">
-		{{ range $_, $kw := .item.Keywords }}
-			<li><a href="https://www.zazzle.com/s/{{ $kw }}/?rf=238606708185114783" target="_blank">{{ $kw }}</a></li>
+		{{ range $i, $kw := .item.Keywords }}
+			<li><a href="https://www.zazzle.com/s/{{ (index $.item_escaped_keywords $i) }}/?rf=238606708185114783" target="_blank">{{ $kw }}</a></li>
 		{{ end }}
 	</ul>
 

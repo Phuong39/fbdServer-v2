@@ -7,6 +7,7 @@ require (
 	github.com/go-zoo/bone v1.3.0
 	github.com/kataras/blocks v0.0.8
 	github.com/mmcdole/gofeed v1.3.0
+	github.com/rainycape/unidecode v0.0.0-20150907023854-cb7f23ec59be
 	github.com/theTardigrade/golang-basicServer v1.0.2
 	github.com/theTardigrade/golang-envStore v1.0.1
 	github.com/theTardigrade/golang-hash v1.4.3

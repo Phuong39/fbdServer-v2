@@ -18,22 +18,22 @@ body a {
 	color: rgb(32, 32, 128);
 }
 
-body > header {
+body header {
 	margin-bottom: 1.25rem;
 	text-align: center;
 	font-weight: 700;
 }
 
-body > header a {
+body header > a {
 	text-decoration: none;
 	color: rgb(16, 16, 64);
 }
 
-body > header h1 {
+body header h1 {
 	font-size: 4rem;
 }
 
-body > header h2 {
+body header h2 {
 	margin-top: 0.5rem;
 	font-size: 1.3125rem;
 }
@@ -88,7 +88,7 @@ body > .item_profile {
 	text-align: center;
 	padding: 1rem;
 	max-width: 50rem;
-	margin: -0.5rem auto;
+	margin: 0 auto -0.5rem;
 	background-color: rgba(255, 255, 255, 0.25);
 }
 
@@ -99,12 +99,12 @@ body > .item_profile img {
 	max-width: 25rem;
 }
 
-body > .item_profile > h1 {
+body > .item_profile > .item_headings > .item_title_heading {
 	font-size: 2.5rem;
 	font-weight: 700;
 }
 
-body > .item_profile > h2 {
+body > .item_profile > .item_headings > .item_store_heading {
 	margin-top: 0.5rem;
 	font-size: 1.5rem;
 	font-weight: 700;

@@ -43,12 +43,17 @@ var (
 )
 
 func itemsDownloadAllFromRemoteStore() (err error) {
+	initStoresAllOnce.Do(initStoresAll)
+
+	fmt.Println("DONWLOADING 1")
 	stores := StoresAll[:]
+	fmt.Println("DONWLOADING 2")
 
 	// random sort
 	sort.Slice(stores, func(i, j int) bool {
 		return rand.Float64() >= 0.5
 	})
+	fmt.Println("DONWLOADING 3", len(stores))
 
 	for _, store := range stores {
 		queryStrings := itemsDownloadFromRemoteStoreQueryStrings[:]
@@ -77,7 +82,7 @@ const (
 func itemsDownloadFromRemoteStore(storeName string, pageNumber int, queryString string) (err error) {
 	var totalResults int
 
-	func() (err error) {
+	err = func() (err error) {
 		defer itemsDownloadFromRemoteStoreMutex.Unlock()
 		itemsDownloadFromRemoteStoreMutex.Lock()
 
@@ -181,7 +186,7 @@ func itemParseFromRemoteStore(rawItem *gofeed.Item, storeName string) (err error
 	keywordsString := strings.Split(rawItem.Extensions["media"]["keywords"][0].Value, ",")
 	priceString := rawItem.Extensions["media"]["price"][0].Value // dollar string
 
-	keywords := make([]template.HTML, 0, len(keywordsString))
+	keywords := make([]template.HTML, len(keywordsString))
 
 	for i, k := range keywordsString {
 		keywords[i] = template.HTML(strings.TrimSpace(k))

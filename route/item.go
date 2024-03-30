@@ -3,11 +3,16 @@ package route
 import (
 	"html"
 	"net/http"
+	"regexp"
 
 	"github.com/go-zoo/bone"
 	"github.com/theTardigrade/fbdServer-v2/model"
 	"github.com/theTardigrade/fbdServer-v2/options"
 	"github.com/theTardigrade/fbdServer-v2/template"
+)
+
+var (
+	itemEscapedKeywordsRegexp = regexp.MustCompile(`(?:&#[0-9]+;|[^a-zA-Z0-9 +-]+)`)
 )
 
 var (
@@ -34,6 +39,16 @@ var (
 
 		data["item"] = item
 		data["page_title"] = html.UnescapeString(string(item.Title)) + " | " + data["site_title"].(string)
+
+		itemEscapedKeywords := make([]string, len(item.Keywords))
+
+		for i, keyword := range item.Keywords {
+			escapedKeyword := itemEscapedKeywordsRegexp.ReplaceAllString(string(keyword), "")
+
+			itemEscapedKeywords[i] = escapedKeyword
+		}
+
+		data["item_escaped_keywords"] = itemEscapedKeywords
 
 		err = template.Views.ExecuteTemplate(w, "item", "main", data)
 		if err != nil {
