@@ -33,11 +33,11 @@ func init() {
 
 var (
 	itemsDownloadFromRemoteStoreQueryStrings = [...]string{
-		"st=popularity&sp=0",
-		"st=popularity&sp=1",
+		// "st=popularity&sp=0",
+		// "st=popularity&sp=1",
 		"st=popularity&sp=7",
 		"st=popularity&sp=30",
-		"st=datecreated",
+		// "st=datecreated",
 	}
 	itemsDownloadFromRemoteStoreMutex sync.Mutex
 )
@@ -45,9 +45,9 @@ var (
 func itemsDownloadAllFromRemoteStore() (err error) {
 	stores := StoresAll[:]
 
-	// shuffle
+	// random sort
 	sort.Slice(stores, func(i, j int) bool {
-		return rand.Intn(2) < 1
+		return rand.Float64() >= 0.5
 	})
 
 	for _, store := range stores {
