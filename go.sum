@@ -69,10 +69,10 @@ github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
 github.com/stretchr/testify v1.8.1 h1:w7B6lhMri9wdJUVmEZPGGhZzrYTPvgJArz7wNPgYKsk=
-github.com/theTardigrade/golang-basicServer v1.0.1 h1:5ROH9M5NIE1ZYnLWqytymhBNMZeqTSrd7VSaWzwoVEk=
-github.com/theTardigrade/golang-basicServer v1.0.1/go.mod h1:Fw+IKCCEmptCnTQMmedLMwdl5nS71AFp2BDN6AmAO+s=
 github.com/theTardigrade/golang-basicServer v1.0.2 h1:D/Fnjf9TLe9HhxtPVH4sy/B4Ynejxpi2X9YPzNGt/XQ=
 github.com/theTardigrade/golang-basicServer v1.0.2/go.mod h1:Fw+IKCCEmptCnTQMmedLMwdl5nS71AFp2BDN6AmAO+s=
+github.com/theTardigrade/golang-envStore v1.0.1 h1:UumD/PXgNm9WY70jOb7F1pVqAaBOWJmvurCCzv6fRX0=
+github.com/theTardigrade/golang-envStore v1.0.1/go.mod h1:HD/nVpxOVl4WM/m8jQZIi8vQSTmg7ozrHkmmOpaEpGk=
 github.com/theTardigrade/golang-hash v1.4.3 h1:kpvNTJPdJGjf9KwfdOmUVMR5iz7WKDrdm7eXWAkdEa4=
 github.com/theTardigrade/golang-hash v1.4.3/go.mod h1:/H6EhVuFbQdVSmBiFrGDI7uyOE6u5nFv9MiOTZGM8io=
 github.com/theTardigrade/golang-tasks v1.1.3 h1:CTjscezAfl0CkDxtylSKKSqmAqgHlbiIKMsS0HgNpMk=
