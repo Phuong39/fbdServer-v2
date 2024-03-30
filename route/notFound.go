@@ -16,6 +16,7 @@ var (
 		}()
 
 		data := map[string]interface{}{
+			"heading": "Error 404",
 			"title":   "Error 404 | Find Beautiful Designs",
 			"message": "The page you are looking for cannot be found.",
 		}

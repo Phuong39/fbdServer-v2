@@ -80,6 +80,12 @@ body .error {
 	text-align: center;
 }
 
+body .error > h2,
 body .error > p {
 	margin-bottom: 1rem;
+}
+
+body .error > h2 {
+	font-size: 1.5rem;
+	font-weight: 700;
 }
