@@ -36,13 +36,15 @@ func staticMimeType(filePath string) (mimeType string) {
 
 var (
 	staticGetHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// var success bool
+		var success bool
 
-		// defer func() {
-		// 	if !success {
-		// 		router.Multiplexer.HandleNotFound(w, r)
-		// 	}
-		// }()
+		defer func() {
+			if err := recover(); err != nil {
+				serverErrorHandler(w, r)
+			} else if !success {
+				notFoundHandler(w, r)
+			}
+		}()
 
 		localPath := filepath.Join(
 			".",
@@ -77,7 +79,7 @@ var (
 		// 	useEtag = false
 		// }
 
-		// success = true
+		success = true
 
 		// if useEtag {
 		// 	etag := datum.etag

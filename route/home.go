@@ -10,6 +10,12 @@ import (
 
 var (
 	homeGetHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		defer func() {
+			if err := recover(); err != nil {
+				serverErrorHandler(w, r)
+			}
+		}()
+
 		data := map[string]interface{}{
 			"title": "Find Beautiful Designs",
 		}

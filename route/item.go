@@ -12,14 +12,25 @@ import (
 
 var (
 	itemGetHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		defer func() {
+			if err := recover(); err != nil {
+				serverErrorHandler(w, r)
+			}
+		}()
+
 		data := map[string]interface{}{}
 
-		// storeName := bone.GetValue(r, "storeName")
+		storeName := bone.GetValue(r, "storeName")
 		hashedGUID := bone.GetValue(r, "itemHashedGUID")
 
 		item, err := model.ItemFromHashedGUID(hashedGUID)
 		if err != nil {
 			panic(err)
+		}
+
+		if item.StoreName != storeName {
+			notFoundHandler(w, r)
+			return
 		}
 
 		data["item"] = item
@@ -29,25 +40,6 @@ var (
 		if err != nil {
 			panic(err)
 		}
-
-		// var output bytes.Buffer
-
-		// output.WriteString(`<!DOCTYPE html><html><head><title>FBD</title>`)
-		// output.WriteString(`<link rel="stylesheet" href="/static/styles/main.css" /></head>`)
-		// output.WriteString(`<body>`)
-		// output.WriteString(`<div class="item_profile">`)
-		// output.WriteString(`<h1>` + string(item.Title) + `</h1>`)
-		// output.WriteString(`<a href="` + item.LinkURL + `">`)
-		// output.WriteString(`<img src=` + item.ImageURL + `" alt="` + string(item.Title) + `" />`)
-		// output.WriteString(`</a>`)
-		// output.WriteString(`<p>` + template.HTMLEscaper(string(item.Description)) + `</p>`)
-		// output.WriteString(`</div>`)
-		// output.WriteString(`</body>`)
-
-		// w.Header().Set("Content-Type", "text/html")
-		// w.WriteHeader(200)
-
-		// w.Write(output.Bytes())
 	})
 )
 

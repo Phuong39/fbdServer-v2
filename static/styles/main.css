@@ -75,3 +75,11 @@ body > .item_profile > nav {
 body > .item_profile > .keywords {
 	display: none;
 }
+
+body .error {
+	text-align: center;
+}
+
+body .error > p {
+	margin-bottom: 1rem;
+}
