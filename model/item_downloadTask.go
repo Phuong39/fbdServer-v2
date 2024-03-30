@@ -44,7 +44,18 @@ var (
 )
 
 func itemsDownloadAllFromRemoteStore() (err error) {
-	stores := StoresAll()
+	stores, err := StoresAll()
+	if err != nil {
+		return
+	}
+
+	{
+		stores2 := make([]string, len(stores))
+
+		copy(stores2, stores)
+
+		stores = stores2
+	}
 
 	// random sort
 	sort.Slice(stores, func(i, j int) bool {

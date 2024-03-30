@@ -2,9 +2,9 @@ package model
 
 import (
 	"encoding/csv"
-	"fmt"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 	"sync"
 )
@@ -17,8 +17,7 @@ var (
 	storesAllCachedMutex  sync.Mutex
 )
 
-func StoresAll() (stores []string) {
-	fmt.Println(storesAllCachedInited, storesAllCached)
+func StoresAll() (stores []string, err error) {
 	if storesAllCachedInited {
 		stores = storesAllCached[:]
 		return
@@ -34,19 +33,21 @@ func StoresAll() (stores []string) {
 
 	f, err := os.Open(filepath.Join("data", "stores.csv"))
 	if err != nil {
-		panic(err)
+		return
 	}
 	defer f.Close()
 
 	csvReader := csv.NewReader(f)
 	records, err := csvReader.ReadAll()
 	if err != nil {
-		panic(err)
+		return
 	}
 
 	for _, r := range records {
 		stores = append(stores, strings.TrimSpace(r[0]))
 	}
+
+	sort.Strings(stores)
 
 	storesAllCached = stores[:]
 	storesAllCachedInited = true
