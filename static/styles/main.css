@@ -101,6 +101,13 @@ body > .item_profile img {
 
 body > .item_profile > h1 {
 	font-size: 2.5rem;
+	font-weight: 700;
+}
+
+body > .item_profile > h2 {
+	margin-top: 0.5rem;
+	font-size: 1.5rem;
+	font-weight: 700;
 }
 
 body > .item_profile > .description {
@@ -114,7 +121,21 @@ body nav {
 }
 
 body > .item_profile > .keywords {
-	display: none;
+	margin-top: 1rem;
+	font-size: 1rem;
+	/* display: none; */
+}
+
+body > .item_profile > .keywords li {
+	display: inline-block;
+}
+
+body > .item_profile > .keywords li::after {
+	content: ", ";
+}
+
+body > .item_profile > .keywords li:last-of-type::after {
+	content: "";
 }
 
 body .error {

@@ -1,4 +1,5 @@
 certificate/
 data/badger/
+data/*.env
 
 *.exe
