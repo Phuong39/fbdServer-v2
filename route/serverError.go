@@ -9,6 +9,7 @@ import (
 var (
 	serverErrorHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		data := map[string]interface{}{
+			"title":   "Error 500 | Find Beautiful Designs",
 			"message": "The server has experienced an unexpected error.",
 		}
 
