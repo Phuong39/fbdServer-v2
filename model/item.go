@@ -64,13 +64,18 @@ func ItemMultipleAtRandom(n int) (items []*Item, err error) {
 }
 
 func ItemAtRandom() (item *Item, found bool, err error) {
-	hashedGUID := itemHashedGUIDAtRandom()
+	key := itemKeyAtRandom()
 
-	return ItemFromHashedGUID(hashedGUID)
+	return ItemFromKey([]byte(key))
 }
 
 func ItemFromHashedGUID(hashedGUID string) (item *Item, found bool, err error) {
 	key := ItemKey(hashedGUID)
+
+	return ItemFromKey(key)
+}
+
+func ItemFromKey(key []byte) (item *Item, found bool, err error) {
 	var value []byte
 
 	err = database.BadgerDB.View(func(txn *badger.Txn) (err2 error) {
@@ -109,11 +114,11 @@ func ItemFromHashedGUID(hashedGUID string) (item *Item, found bool, err error) {
 	return
 }
 
-func itemHashedGUIDAtRandom() (guid string) {
-	defer itemHashedGUIDMutex.Unlock()
-	itemHashedGUIDMutex.Lock()
+func itemKeyAtRandom() (guid string) {
+	defer itemKeyMapAndSliceMutex.RUnlock()
+	itemKeyMapAndSliceMutex.RLock()
 
-	index := rand.Intn(len(ItemHashedGUIDSlice))
+	index := rand.Intn(len(ItemKeySlice))
 
-	return ItemHashedGUIDSlice[index]
+	return ItemKeySlice[index]
 }

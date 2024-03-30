@@ -8,9 +8,9 @@ import (
 )
 
 var (
-	ItemHashedGUIDMap   = make(map[string]struct{})
-	ItemHashedGUIDSlice = make([]string, 0, (1 << 16))
-	itemHashedGUIDMutex sync.Mutex
+	ItemKeyMap              = make(map[string]struct{})
+	ItemKeySlice            = make([]string, 0, (1 << 16))
+	itemKeyMapAndSliceMutex sync.RWMutex
 )
 
 func init() {
@@ -22,7 +22,7 @@ func init() {
 
 		for it.Rewind(); it.Valid(); it.Next() {
 			item := it.Item()
-			hashedGUID := string(item.Key())
+			key := string(item.Key())
 			// var hashedGUID string
 
 			// err := item.Value(func(v []byte) error {
@@ -41,7 +41,7 @@ func init() {
 			// 	return err
 			// }
 
-			itemAddToHashedGUIDMapAndSlice(hashedGUID)
+			itemAddToKeyMapAndSlice(key)
 		}
 
 		return nil
@@ -51,12 +51,12 @@ func init() {
 	}
 }
 
-func itemAddToHashedGUIDMapAndSlice(hashedGUID string) {
-	defer itemHashedGUIDMutex.Unlock()
-	itemHashedGUIDMutex.Lock()
+func itemAddToKeyMapAndSlice(key string) {
+	defer itemKeyMapAndSliceMutex.Unlock()
+	itemKeyMapAndSliceMutex.Lock()
 
-	if _, found := ItemHashedGUIDMap[hashedGUID]; !found {
-		ItemHashedGUIDMap[hashedGUID] = struct{}{}
-		ItemHashedGUIDSlice = append(ItemHashedGUIDSlice, hashedGUID)
+	if _, found := ItemKeyMap[key]; !found {
+		ItemKeyMap[key] = struct{}{}
+		ItemKeySlice = append(ItemKeySlice, key)
 	}
 }

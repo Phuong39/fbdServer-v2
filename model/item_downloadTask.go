@@ -239,13 +239,14 @@ func itemParseFromRemoteStore(rawItem *gofeed.Item, storeName string) (err error
 		return
 	}
 
+	itemKey := ItemKey(item.HashedGUID)
+
 	err = database.BadgerDB.Update(func(txn *badger.Txn) error {
-		key := ItemKey(item.HashedGUID)
-		entry := badger.NewEntry(key, itemJSON).WithTTL(time.Hour * 24 * 7 * 26) // half a year
+		entry := badger.NewEntry(itemKey, itemJSON).WithTTL(time.Hour * 24 * 7 * 26) // half a year
 		return txn.SetEntry(entry)
 	})
 
-	itemAddToHashedGUIDMapAndSlice(item.HashedGUID)
+	itemAddToKeyMapAndSlice(string(itemKey))
 
 	// if foundItem {
 	// 	// err = dbItem.Update(
