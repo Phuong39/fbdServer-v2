@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"html/template"
+	"log"
 	"math/rand"
 	"net/url"
 	"sort"
@@ -133,8 +134,8 @@ func itemsDownloadFromRemoteStore(storeName string, pageNumber int, queryString 
 	}
 
 	// if environment.IsDevelopmentMode {
-	// 	log.Printf("DOWNLOAD STORE ITEMS: %s (page %d) (%d items per page) (%d results) (%s)\n",
-	// 		storeName, pageNumber, itemsPerDownloadFeed, totalResults, queryString)
+	log.Printf("DOWNLOAD STORE ITEMS: %s (page %d) (%d items per page) (%d results) (%s)\n",
+		storeName, pageNumber, itemsDownloadPerFeed, totalResults, queryString)
 	// }
 
 	if totalResults > itemsDownloadPerFeed*pageNumber {
@@ -255,7 +256,7 @@ func itemParseFromRemoteStore(rawItem *gofeed.Item, storeName string) (err error
 	// }
 
 	// if !foundItem && environment.IsDevelopmentMode {
-	// 	log.Printf("ADDED NEW PRODUCT: %s\n", title)
+	// log.Printf("ADDED NEW PRODUCT: %s\n", title)
 	// }
 
 	return
