@@ -1,0 +1,24 @@
+<div class="item_profile">
+	<h1>{{ .item.Title }}</h1>
+	<h2>
+		<a href="https://www.zazzle.com/store/{{ .item.StoreName }}?rf=238606708185114783" target="_blank">
+			{{ .item.StoreName }}
+		</a>
+	</h2>
+
+	<a href="{{ .item.LinkURL }}" target="_blank">
+		<img src="{{ .item.ImageURL }}" alt="{{ .item.Title }}" title="{{ .item.Title }}" />
+	</a>
+
+	<p class="description">{{ .item.Description }}</p>
+
+	<ul class="keywords">
+		{{ range $_, $kw := .item.Keywords }}
+			<li>{{ $kw }}</li>
+		{{ end }}
+	</ul>
+ 
+	<nav>
+		<a href="/">home</a>
+	</nav>
+</div>
