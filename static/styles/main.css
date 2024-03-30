@@ -104,7 +104,7 @@ body > .items .item > h1 {
     max-width: 100%;
     font-size: 1rem;
     text-align: center;
-	background-color: rgba(16, 16, 64, 0.5);
+	background-color: rgba(16, 16, 64, 0.625);
 	color: rgba(255, 255, 255, 0.625);
 	border-top-left-radius: 0.375rem;
 	border-top-right-radius: 0.375rem;
@@ -163,10 +163,23 @@ body > .item_profile > .item_headings > .item_title_heading {
 	border-top-right-radius: 1rem;
 }
 
+body > .item_profile > .item_headings > .item_title_heading > a {
+	color: #fff;
+	text-decoration: none;
+}
+
+body > .item_profile > .item_headings > .item_title_heading > a:hover {
+	text-decoration: underline;
+}
+
 body > .item_profile > .item_headings > .item_store_heading {
 	margin-top: 0.5rem;
 	font-size: 1.5rem;
 	font-weight: 700;
+}
+
+body > .item_profile > .item_headings > .item_store_heading::before {
+    content: "Store: ";
 }
 
 body > .item_profile > .description {
