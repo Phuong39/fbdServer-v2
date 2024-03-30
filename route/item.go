@@ -23,12 +23,11 @@ var (
 		storeName := bone.GetValue(r, "storeName")
 		hashedGUID := bone.GetValue(r, "itemHashedGUID")
 
-		item, err := model.ItemFromHashedGUID(hashedGUID)
+		item, itemFound, err := model.ItemFromHashedGUID(hashedGUID)
 		if err != nil {
 			panic(err)
 		}
-
-		if item.StoreName != storeName {
+		if !itemFound || item.StoreName != storeName {
 			notFoundHandler(w, r)
 			return
 		}

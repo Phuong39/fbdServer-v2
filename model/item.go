@@ -26,6 +26,7 @@ type Item struct {
 
 func ItemMultipleAtRandom(n int) (items []*Item, err error) {
 	itemMap := make(map[*Item]struct{})
+	var found bool
 
 	for i := 0; i < (n * 10); i++ {
 		if len(itemMap) == n {
@@ -34,9 +35,12 @@ func ItemMultipleAtRandom(n int) (items []*Item, err error) {
 
 		var item *Item
 
-		item, err = ItemAtRandom()
+		item, found, err = ItemAtRandom()
 		if err != nil {
 			return
+		}
+		if !found {
+			continue
 		}
 
 		itemMap[item] = struct{}{}
@@ -49,13 +53,13 @@ func ItemMultipleAtRandom(n int) (items []*Item, err error) {
 	return
 }
 
-func ItemAtRandom() (item *Item, err error) {
+func ItemAtRandom() (item *Item, found bool, err error) {
 	hashedGUID := itemHashedGUIDAtRandom()
 
 	return ItemFromHashedGUID(hashedGUID)
 }
 
-func ItemFromHashedGUID(hashedGUID string) (item *Item, err error) {
+func ItemFromHashedGUID(hashedGUID string) (item *Item, found bool, err error) {
 	var value []byte
 
 	err = database.BadgerDB.View(func(txn *badger.Txn) (err2 error) {
@@ -63,18 +67,23 @@ func ItemFromHashedGUID(hashedGUID string) (item *Item, err error) {
 
 		rawItem, err2 = txn.Get([]byte(hashedGUID))
 		if err2 != nil {
-			return err2
+			if err2 == badger.ErrKeyNotFound {
+				return nil
+			} else {
+				return err2
+			}
 		}
 
 		rawItem.Value(func(value2 []byte) error {
 			value = value2
+			found = true
 
 			return nil
 		})
 
 		return
 	})
-	if err != nil {
+	if err != nil || !found {
 		return
 	}
 
