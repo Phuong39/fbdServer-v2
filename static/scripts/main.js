@@ -32,7 +32,7 @@
 			const setMinHeightForItemsTimeoutId = window.setInterval(() => {
 				setMinHeightForItems(itemEls);
 
-				if (--setMinHeightForItemsIterations <= 0) {
+				if (setMinHeightForItemsIterations-- <= 0) {
 					window.clearTimeout(setMinHeightForItemsTimeoutId);
 				}
 			}, 25);
