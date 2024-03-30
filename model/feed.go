@@ -15,10 +15,14 @@ type Feed struct {
 	LastDownloadTime time.Time `json:"t"`
 }
 
+const (
+	feedKeyPrefix = "feed_"
+)
+
 func FeedKey(url string) []byte {
 	var buffer bytes.Buffer
 
-	buffer.WriteString("feed_")
+	buffer.WriteString(feedKeyPrefix)
 	buffer.WriteString(hash.Uint256String(url).Text(35))
 
 	return buffer.Bytes()

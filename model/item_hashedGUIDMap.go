@@ -1,6 +1,7 @@
 package model
 
 import (
+	"strings"
 	"sync"
 
 	"github.com/dgraph-io/badger/v4"
@@ -23,6 +24,10 @@ func init() {
 		for it.Rewind(); it.Valid(); it.Next() {
 			item := it.Item()
 			key := string(item.Key())
+
+			if !strings.HasPrefix(key, itemKeyPrefix) {
+				continue
+			}
 			// var hashedGUID string
 
 			// err := item.Value(func(v []byte) error {

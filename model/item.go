@@ -25,10 +25,14 @@ type Item struct {
 	Price       uint64          `json:"c"` // US cents
 }
 
+const (
+	itemKeyPrefix = "item_"
+)
+
 func ItemKey(hashedGUID string) []byte {
 	var buffer bytes.Buffer
 
-	buffer.WriteString("item_")
+	buffer.WriteString(itemKeyPrefix)
 	buffer.WriteString(hashedGUID)
 
 	return buffer.Bytes()
@@ -38,7 +42,7 @@ func ItemMultipleAtRandom(n int) (items []*Item, err error) {
 	itemMap := make(map[*Item]struct{})
 	var found bool
 
-	for i := 0; i < (n * 10); i++ {
+	for i := 0; i < (n * 20); i++ {
 		if len(itemMap) == n {
 			break
 		}

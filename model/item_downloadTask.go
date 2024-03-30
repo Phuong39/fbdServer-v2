@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"html/template"
 	"log"
+	"math/rand"
 	"net/url"
+	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -15,6 +17,7 @@ import (
 	"github.com/dgraph-io/badger/v4"
 	"github.com/mmcdole/gofeed"
 	"github.com/theTardigrade/fbdServer-v2/database"
+	"github.com/theTardigrade/fbdServer-v2/environment"
 	hash "github.com/theTardigrade/golang-hash"
 	tasks "github.com/theTardigrade/golang-tasks"
 )
@@ -44,17 +47,17 @@ func itemsDownloadAllFromRemoteStore() (err error) {
 	stores := StoresAll()
 
 	// random sort
-	// sort.Slice(stores, func(i, j int) bool {
-	// 	return rand.Float64() >= 0.5
-	// })
+	sort.Slice(stores, func(i, j int) bool {
+		return rand.Float64() >= 0.5
+	})
 
 	for _, store := range stores {
 		queryStrings := itemsDownloadFromRemoteStoreQueryStrings[:]
 
 		// random sort
-		// sort.Slice(queryStrings, func(i, j int) bool {
-		// 	return rand.Float64() >= 0.5
-		// })
+		sort.Slice(queryStrings, func(i, j int) bool {
+			return rand.Float64() >= 0.5
+		})
 
 		for _, q := range queryStrings {
 			if err = itemsDownloadFromRemoteStore(store, 1, q); err != nil {
@@ -167,7 +170,10 @@ func itemParseFromRemoteStore(rawItem *gofeed.Item, storeName string) (err error
 
 	parseLinkURLQuery := parsedLinkURL.Query()
 
-	parseLinkURLQuery.Add("rf", "238606708185114783")
+	parseLinkURLQuery.Add(
+		environment.Data.MustGet("referral_query_key"),
+		environment.Data.MustGet("referral_query_value"),
+	)
 
 	parsedLinkURL.RawQuery = parseLinkURLQuery.Encode()
 
