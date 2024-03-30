@@ -20,7 +20,7 @@ var (
 
 		data["page_title"] = data["site_title"]
 
-		items, err := model.ItemMultipleAtRandom(240)
+		items, err := model.ItemMultipleAtRandom(120)
 		if err != nil {
 			panic(err)
 		}
