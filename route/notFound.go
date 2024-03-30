@@ -15,9 +15,13 @@ var (
 			}
 		}()
 
+		data := map[string]interface{}{
+			"message": "The page you are looking for cannot be found.",
+		}
+
 		w.WriteHeader(http.StatusNotFound)
 
-		err := template.Views.ExecuteTemplate(w, "notFound", "main", nil)
+		err := template.Views.ExecuteTemplate(w, "notFound", "main", data)
 		if err != nil {
 			panic(err)
 		}
