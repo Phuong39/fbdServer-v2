@@ -4,6 +4,7 @@ import (
 	"html"
 	"net/http"
 	"regexp"
+	"strings"
 
 	"github.com/go-zoo/bone"
 	"github.com/theTardigrade/fbdServer-v2/model"
@@ -39,6 +40,30 @@ var (
 
 		data["item"] = item
 		data["page_title"] = html.UnescapeString(string(item.Title)) + " | " + data["site_title"].(string)
+
+		{ // create page_description
+			description := html.UnescapeString(string(item.Description))
+			description = strings.TrimSpace(description)
+
+			descriptionRunes := []rune(description)
+			descriptionRunesLen := len(descriptionRunes)
+
+			for i, r := range descriptionRunes {
+				if r == '.' || r == '?' || r == '!' {
+					descriptionRunesLen = i + 1
+					break
+				}
+
+				if i > 0 && (r == '\n' || r == '\r') {
+					descriptionRunesLen = i
+					break
+				}
+			}
+
+			description = string(descriptionRunes[:descriptionRunesLen])
+
+			data["page_description"] = description
+		}
 
 		itemEscapedKeywords := make([]string, len(item.Keywords))
 

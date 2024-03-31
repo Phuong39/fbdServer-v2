@@ -21,5 +21,4 @@ func main() {
 	basicServer.ServeContinuously(options.Options, func(err error) {
 		log.Println(err)
 	})
-
 }
