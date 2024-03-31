@@ -1,4 +1,4 @@
-(() => {
+((window) => {
 
 	const loadFile = (fileURL, mimeType) => {
 		fetch(fileURL).then((response) => {
@@ -42,7 +42,9 @@
 		}
 	};
 
-	const loadHandler = () => {
+	const loadHandler = (() => {
+		let inited = false;
+
 		const fileData = [
 			{
 				url: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap",
@@ -50,28 +52,40 @@
 			}
 		];
 
-		for (const f of fileData) {
-			loadFile(f.url, f.mimeType);
-		}
+		return () => {
+			if (!inited) {
+				inited = true;
+			} else {
+				return;
+			}
 
-		const itemEls = document.querySelectorAll(".items .item");
+			for (const f of fileData) {
+				loadFile(f.url, f.mimeType);
+			}
 
-		if (itemEls && itemEls.length > 0) {
-			setMinHeightForItems(itemEls);
+			const itemEls = document.querySelectorAll(".items .item");
 
-			let setMinHeightForItemsIterations = 50;
-			const setMinHeightForItemsTimeoutId = window.setInterval(() => {
+			if (itemEls && itemEls.length > 0) {
 				setMinHeightForItems(itemEls);
 
-				if (setMinHeightForItemsIterations-- <= 0) {
-					window.clearTimeout(setMinHeightForItemsTimeoutId);
-				}
-			}, 25);
-		}
-	};
+				let setMinHeightForItemsIterations = 50;
+				const setMinHeightForItemsTimeoutId = window.setInterval(() => {
+					setMinHeightForItems(itemEls);
+
+					if (setMinHeightForItemsIterations-- <= 0) {
+						window.clearTimeout(setMinHeightForItemsTimeoutId);
+					}
+				}, 25);
+			}
+		};
+	})();
 
 	window.addEventListener("DOMContentLoaded", () => {
 		loadHandler();
 	});
 
-})();
+	window.addEventListener("load", () => {
+		loadHandler();
+	});
+
+})(window);
