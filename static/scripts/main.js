@@ -47,8 +47,8 @@
 
 		const fileData = [
 			{
-				url: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap",
-				mimeType: "text/css",
+				u: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap",
+				m: "text/css",
 			}
 		];
 
@@ -60,7 +60,7 @@
 			}
 
 			for (const f of fileData) {
-				loadFile(f.url, f.mimeType);
+				loadFile(f.u, f.m);
 			}
 
 			const itemEls = document.querySelectorAll(".items .item");
