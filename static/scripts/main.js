@@ -1,11 +1,35 @@
-((window) => {
+((window, document, console) => {
 
-	const loadFile = (fileURL, mimeType) => {
+	const getExt = (fileURL, ext) => {
+		let extLocal = ext;
+
+		if (!extLocal) {
+			const fileURLSegments = fileURL.split(".");
+
+			if (fileURLSegments.length > 0) {
+				const extLocal2 = fileURLSegments[fileURLSegments.length - 1];
+
+				if (extLocal2.length >= 2 && extLocal2 <= 4) {
+					extLocal = extLocal2;
+				}
+			}
+		}
+
+		if (extLocal.charAt(0) === ".") {
+			extLocal = extLocal.slice(1)
+		}
+
+		return extLocal
+	};
+
+	const loadFile = (fileURL, ext) => {
 		fetch(fileURL).then((response) => {
 			return response.text();
 		}).then((text) => {
-			switch (mimeType) {
-				case "text/css":
+			const extLocal = getExt(fileURL, ext);
+
+			switch (extLocal) {
+				case "css":
 				{
 					const styleEl = document.createElement("style");
 					const textNode = document.createTextNode(text);
@@ -48,7 +72,7 @@
 		const fileData = [
 			{
 				u: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap",
-				m: "text/css",
+				e: "css",
 			}
 		];
 
@@ -60,7 +84,7 @@
 			}
 
 			for (const f of fileData) {
-				loadFile(f.u, f.m);
+				loadFile(f.u, f.e);
 			}
 
 			const itemEls = document.querySelectorAll(".items .item");
@@ -80,6 +104,10 @@
 		};
 	})();
 
+	if (document.readyState === "interactive" || document.readyState === "complete") {
+		loadHandler();
+	}
+
 	window.addEventListener("DOMContentLoaded", () => {
 		loadHandler();
 	});
@@ -88,4 +116,4 @@
 		loadHandler();
 	});
 
-})(window);
+})(window, document, console);
