@@ -24,6 +24,8 @@ var (
 )
 
 func init() {
+	globalFilepath.Init("..")
+
 	for i, path := range config.FromFilePaths {
 		config.FromFilePaths[i] = globalFilepath.Join(path)
 	}
