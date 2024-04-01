@@ -39,11 +39,15 @@ func ItemKey(hashedGUID string) []byte {
 }
 
 func ItemMultipleAtRandom(n int) (items []*Item, err error) {
+	return ItemMultipleAtRandomWithAttempts(n, n*20)
+}
+
+func ItemMultipleAtRandomWithAttempts(itemCount, attemptCount int) (items []*Item, err error) {
 	itemMap := make(map[*Item]struct{})
 	var found bool
 
-	for i := 0; i < (n * 20); i++ {
-		if len(itemMap) == n {
+	for i := 0; i < attemptCount; i++ {
+		if len(itemMap) == itemCount {
 			break
 		}
 

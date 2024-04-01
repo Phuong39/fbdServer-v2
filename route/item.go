@@ -5,11 +5,13 @@ import (
 	"net/http"
 	"regexp"
 	"strings"
+	"time"
 
 	"github.com/go-zoo/bone"
 	"github.com/theTardigrade/fbdServer-v2/model"
 	"github.com/theTardigrade/fbdServer-v2/options"
 	"github.com/theTardigrade/fbdServer-v2/template"
+	tasks "github.com/theTardigrade/golang-tasks"
 )
 
 var (
@@ -88,4 +90,47 @@ const (
 
 func init() {
 	options.Options.Routes.Get[itemPath] = itemGetHandler
+
+	func() {
+		const itemCount = 25_000
+
+		items, err := model.ItemMultipleAtRandomWithAttempts(itemCount, itemCount)
+		if err != nil {
+			panic(err)
+		}
+
+		paths := make([]string, 0, len(items))
+
+		for _, item := range items {
+			path := `/store/` + item.StoreName + `/item/` + item.HashedGUID
+
+			paths = append(paths, path)
+		}
+
+		sitemapPathAddMany(paths)
+	}()
+
+	tasks.Set(time.Minute*10, true, func(id *tasks.Identifier) {
+		if sitemapPathCount() >= 45_000 {
+			id.Stop()
+			return
+		}
+
+		const itemCount = 1_000
+
+		items, err := model.ItemMultipleAtRandomWithAttempts(itemCount, itemCount)
+		if err != nil {
+			panic(err)
+		}
+
+		paths := make([]string, 0, len(items))
+
+		for _, item := range items {
+			path := `/store/` + item.StoreName + `/item/` + item.HashedGUID
+
+			paths = append(paths, path)
+		}
+
+		sitemapPathAddMany(paths)
+	})
 }

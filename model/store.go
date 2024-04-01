@@ -44,6 +44,8 @@ func storesAll_read(useMutex bool) (stores []string, found bool) {
 
 	if storesAllCachedInited {
 		stores = storesAllCached[:]
+		found = true
+
 		return
 	}
 
@@ -69,6 +71,10 @@ func storesAll_readWrite() (stores []string, err error) {
 	records, err := csvReader.ReadAll()
 	if err != nil {
 		return
+	}
+
+	if len(stores) > 0 {
+		stores = stores[:0]
 	}
 
 	for _, r := range records {
