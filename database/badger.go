@@ -14,7 +14,7 @@ var (
 )
 
 func init() {
-	globalFilepath.Init()
+	globalFilepath.Init("..")
 
 	badgerDataPathAbs := globalFilepath.Join(badgerDataPath)
 
