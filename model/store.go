@@ -15,7 +15,7 @@ type Store string
 var (
 	storesAllCached       []string
 	storesAllCachedInited bool
-	storesAllCachedMutex  sync.Mutex
+	storesAllCachedMutex  sync.RWMutex
 )
 
 const (
@@ -23,16 +23,39 @@ const (
 )
 
 func StoresAll() (stores []string, err error) {
+	stores, found := storesAll_read(true)
+	if found {
+		return
+	}
+
+	stores, err = storesAll_readWrite()
+	if err != nil {
+		return
+	}
+
+	return
+}
+
+func storesAll_read(useMutex bool) (stores []string, found bool) {
+	if useMutex {
+		defer storesAllCachedMutex.RUnlock()
+		storesAllCachedMutex.RLock()
+	}
+
 	if storesAllCachedInited {
 		stores = storesAllCached[:]
 		return
 	}
 
+	return
+}
+
+func storesAll_readWrite() (stores []string, err error) {
 	defer storesAllCachedMutex.Unlock()
 	storesAllCachedMutex.Lock()
 
-	if storesAllCachedInited {
-		stores = storesAllCached[:]
+	stores, found := storesAll_read(false)
+	if found {
 		return
 	}
 
