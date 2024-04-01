@@ -2,32 +2,44 @@ package route
 
 import (
 	"bytes"
+	"math"
 	"net/http"
+	"strconv"
 	"sync"
-	"time"
 
 	"github.com/theTardigrade/fbdServer-v2/environment"
 	"github.com/theTardigrade/fbdServer-v2/options"
 )
 
+const (
+	sitemapPathsPerSub = 1_000
+)
+
 var (
-	sitemapPaths      = make(map[string]struct{})
+	sitemapPathsMap   = make(map[string]struct{})
+	sitemapPathsSlice []string
 	sitemapPathsMutex sync.RWMutex
 )
 
-func sitemapPathAdd(url string) {
+func sitemapPathAdd(path string) {
 	defer sitemapPathsMutex.Unlock()
 	sitemapPathsMutex.Lock()
 
-	sitemapPaths[url] = struct{}{}
+	if _, found := sitemapPathsMap[path]; !found {
+		sitemapPathsMap[path] = struct{}{}
+		sitemapPathsSlice = append(sitemapPathsSlice, path)
+	}
 }
 
-func sitemapPathAddMany(urls []string) {
+func sitemapPathAddMany(paths []string) {
 	defer sitemapPathsMutex.Unlock()
 	sitemapPathsMutex.Lock()
 
-	for _, u := range urls {
-		sitemapPaths[u] = struct{}{}
+	for _, path := range paths {
+		if _, found := sitemapPathsMap[path]; !found {
+			sitemapPathsMap[path] = struct{}{}
+			sitemapPathsSlice = append(sitemapPathsSlice, path)
+		}
 	}
 }
 
@@ -35,14 +47,8 @@ func sitemapPathCount() int {
 	defer sitemapPathsMutex.RUnlock()
 	sitemapPathsMutex.RLock()
 
-	return len(sitemapPaths)
+	return len(sitemapPathsSlice)
 }
-
-var (
-	sitemapCached      []byte
-	sitemapCachedTime  time.Time
-	sitemapCachedMutex sync.Mutex
-)
 
 var (
 	sitemapGetHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -52,45 +58,24 @@ var (
 			}
 		}()
 
-		var sitemap []byte
+		siteDomain := environment.Data.MustGet("site_domain")
+		subCount := int(math.Ceil(float64(sitemapPathCount()) / float64(sitemapPathsPerSub)))
 
-		func() {
-			defer sitemapCachedMutex.Unlock()
-			sitemapCachedMutex.Lock()
+		var buffer bytes.Buffer
 
-			if len(sitemapCached) != 0 && !sitemapCachedTime.IsZero() && time.Since(sitemapCachedTime) < time.Minute*5 {
-				sitemap = sitemapCached[:]
-			} else {
-				var buffer bytes.Buffer
+		buffer.WriteString(`<?xml version="1.0" encoding="utf-8"?>`)
+		buffer.WriteString(`<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`)
 
-				buffer.WriteString(`<?xml version="1.0" encoding="UTF-8"?>`)
-				buffer.WriteString(`<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`)
+		for i := 1; i <= subCount; i++ {
+			buffer.WriteString(`<sitemap>`)
+			buffer.WriteString(`<loc>https://` + siteDomain + `/sitemap/` + strconv.Itoa(i) + `/sub.xml</loc>`)
+			buffer.WriteString(`</sitemap>`)
+		}
 
-				func(siteDomain string) {
-					defer sitemapPathsMutex.RUnlock()
-					sitemapPathsMutex.RLock()
-
-					for path := range sitemapPaths {
-						buffer.WriteString(`<url>`)
-						buffer.WriteString(`<loc>https://`)
-						buffer.WriteString(siteDomain)
-						buffer.WriteString(path)
-						buffer.WriteString(`</loc>`)
-						buffer.WriteString(`</url>`)
-					}
-				}(environment.Data.MustGet("site_domain"))
-
-				buffer.WriteString(`</urlset>`)
-
-				sitemap = buffer.Bytes()
-
-				sitemapCached = sitemap[:]
-				sitemapCachedTime = time.Now()
-			}
-		}()
+		buffer.WriteString(`</sitemapindex>`)
 
 		w.WriteHeader(http.StatusOK)
-		w.Write(sitemap)
+		w.Write(buffer.Bytes())
 	})
 )
 

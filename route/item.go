@@ -111,7 +111,7 @@ func init() {
 	}()
 
 	tasks.Set(time.Minute*10, true, func(id *tasks.Identifier) {
-		if sitemapPathCount() >= 45_000 {
+		if sitemapPathCount() >= 10_000_000 {
 			id.Stop()
 			return
 		}
