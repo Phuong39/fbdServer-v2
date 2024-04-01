@@ -12,9 +12,7 @@ const (
 var (
 	Data   *envStore.Environment
 	config = &envStore.Config{
-		FromFilePaths: []string{
-			globalFilepath.Join(filePath),
-		},
+		FromFilePaths:    []string{filePath},
 		IgnoreEmptyLines: true,
 		UseMutex:         true,
 	}
@@ -26,6 +24,10 @@ var (
 )
 
 func init() {
+	for i, path := range config.FromFilePaths {
+		config.FromFilePaths[i] = globalFilepath.Join(path)
+	}
+
 	var err error
 
 	Data, err = envStore.New(config)
