@@ -1,8 +1,6 @@
 package main
 
 import (
-	"log"
-
 	"github.com/theTardigrade/fbdServer-v2/database"
 	_ "github.com/theTardigrade/fbdServer-v2/middleware"
 	_ "github.com/theTardigrade/fbdServer-v2/model"
@@ -14,7 +12,7 @@ import (
 func main() {
 	defer database.Close()
 
-	basicServer.ServeContinuously(options.Options, func(err error) {
-		log.Println(err)
-	})
+	if err := basicServer.Serve(options.Options); err != nil {
+		panic(err)
+	}
 }
