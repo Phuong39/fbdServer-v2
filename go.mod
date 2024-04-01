@@ -9,6 +9,7 @@ require (
 	github.com/mmcdole/gofeed v1.3.0
 	github.com/theTardigrade/golang-basicServer v1.0.3
 	github.com/theTardigrade/golang-envStore v1.0.1
+	github.com/theTardigrade/golang-globalFilepath v1.1.0
 	github.com/theTardigrade/golang-hash v1.4.3
 	github.com/theTardigrade/golang-tasks v1.1.3
 	github.com/theTardigrade/gzipResponseWriter v0.0.0-20211205024526-d92ad5d1ef57

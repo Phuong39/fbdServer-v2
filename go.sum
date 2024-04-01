@@ -73,6 +73,8 @@ github.com/theTardigrade/golang-basicServer v1.0.3 h1:D6mtwvwVe00/T+fcyU/t2HEn58
 github.com/theTardigrade/golang-basicServer v1.0.3/go.mod h1:Fw+IKCCEmptCnTQMmedLMwdl5nS71AFp2BDN6AmAO+s=
 github.com/theTardigrade/golang-envStore v1.0.1 h1:UumD/PXgNm9WY70jOb7F1pVqAaBOWJmvurCCzv6fRX0=
 github.com/theTardigrade/golang-envStore v1.0.1/go.mod h1:HD/nVpxOVl4WM/m8jQZIi8vQSTmg7ozrHkmmOpaEpGk=
+github.com/theTardigrade/golang-globalFilepath v1.1.0 h1:DIGlAF+lJWRlWwhSjeBAWL0wGtvLcqvD7cUrM/a6NDc=
+github.com/theTardigrade/golang-globalFilepath v1.1.0/go.mod h1:kbMc2SuQirBuuc/uMPpgLkPs8oA0iWLaiPy4Y3yOxY8=
 github.com/theTardigrade/golang-hash v1.4.3 h1:kpvNTJPdJGjf9KwfdOmUVMR5iz7WKDrdm7eXWAkdEa4=
 github.com/theTardigrade/golang-hash v1.4.3/go.mod h1:/H6EhVuFbQdVSmBiFrGDI7uyOE6u5nFv9MiOTZGM8io=
 github.com/theTardigrade/golang-tasks v1.1.3 h1:CTjscezAfl0CkDxtylSKKSqmAqgHlbiIKMsS0HgNpMk=

@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"os"
 
 	"github.com/theTardigrade/fbdServer-v2/database"
 	_ "github.com/theTardigrade/fbdServer-v2/middleware"
@@ -11,10 +10,6 @@ import (
 	_ "github.com/theTardigrade/fbdServer-v2/route"
 	basicServer "github.com/theTardigrade/golang-basicServer"
 )
-
-func init() {
-	log.SetOutput(os.Stderr)
-}
 
 func main() {
 	defer database.Close()

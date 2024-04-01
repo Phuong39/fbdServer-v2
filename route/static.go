@@ -8,6 +8,7 @@ import (
 	"regexp"
 
 	"github.com/theTardigrade/fbdServer-v2/options"
+	globalFilepath "github.com/theTardigrade/golang-globalFilepath"
 )
 
 const (
@@ -46,8 +47,7 @@ var (
 			}
 		}()
 
-		localPath := filepath.Join(
-			".",
+		localPath := globalFilepath.Join(
 			staticPrevDirRegexp.ReplaceAllLiteralString(r.URL.Path[1:], staticPrevDirReplacement),
 		)
 

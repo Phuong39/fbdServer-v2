@@ -3,10 +3,11 @@ package model
 import (
 	"encoding/csv"
 	"os"
-	"path/filepath"
 	"sort"
 	"strings"
 	"sync"
+
+	globalFilepath "github.com/theTardigrade/golang-globalFilepath"
 )
 
 type Store string
@@ -15,6 +16,10 @@ var (
 	storesAllCached       []string
 	storesAllCachedInited bool
 	storesAllCachedMutex  sync.Mutex
+)
+
+const (
+	storesAllFilePath = "data/stores.csv"
 )
 
 func StoresAll() (stores []string, err error) {
@@ -31,7 +36,7 @@ func StoresAll() (stores []string, err error) {
 		return
 	}
 
-	f, err := os.Open(filepath.Join("data", "stores.csv"))
+	f, err := os.Open(globalFilepath.Join(storesAllFilePath))
 	if err != nil {
 		return
 	}
