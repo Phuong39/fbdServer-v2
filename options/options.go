@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	basicServer "github.com/theTardigrade/golang-basicServer"
+	globalFilepath "github.com/theTardigrade/golang-globalFilepath"
 )
 
 var (
@@ -15,3 +16,10 @@ var (
 		},
 	}
 )
+
+func init() {
+	globalFilepath.Init("..")
+
+	Options.CertFilePath = globalFilepath.Join(Options.CertFilePath)
+	Options.KeyFilePath = globalFilepath.Join(Options.KeyFilePath)
+}
