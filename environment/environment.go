@@ -2,6 +2,7 @@ package environment
 
 import (
 	envStore "github.com/theTardigrade/golang-envStore"
+	globalFilepath "github.com/theTardigrade/golang-globalFilepath"
 )
 
 const (
@@ -11,7 +12,9 @@ const (
 var (
 	Data   *envStore.Environment
 	config = &envStore.Config{
-		FromFilePaths:    []string{filePath},
+		FromFilePaths: []string{
+			globalFilepath.Join(filePath),
+		},
 		IgnoreEmptyLines: true,
 		UseMutex:         true,
 	}
