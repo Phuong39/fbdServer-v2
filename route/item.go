@@ -92,7 +92,7 @@ func init() {
 	options.Options.Routes.Get[itemPath] = itemGetHandler
 
 	func() {
-		const itemCount = 25_000
+		const itemCount = 10_000
 
 		items, err := model.ItemMultipleAtRandomWithAttempts(itemCount, itemCount)
 		if err != nil {
@@ -110,7 +110,7 @@ func init() {
 		sitemapPathAddMany(paths)
 	}()
 
-	tasks.Set(time.Minute*10, true, func(id *tasks.Identifier) {
+	tasks.Set(time.Minute*5, false, func(id *tasks.Identifier) {
 		if sitemapPathCount() >= 10_000_000 {
 			id.Stop()
 			return

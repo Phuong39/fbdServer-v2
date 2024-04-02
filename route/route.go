@@ -4,15 +4,45 @@ import (
 	"sync"
 
 	"github.com/theTardigrade/fbdServer-v2/environment"
+	"github.com/theTardigrade/fbdServer-v2/model"
 )
 
 var (
 	dataDefaultCached      map[string]interface{}
-	dataDefaultCachedMutex sync.Mutex
+	dataDefaultCachedMutex sync.RWMutex
 )
 
 func dataDefault() (data map[string]interface{}) {
 	data = make(map[string]interface{})
+
+	if found := dataDefault_read(data); found {
+		return
+	}
+
+	dataDefault_readWrite(data)
+
+	return
+}
+
+func dataDefault_read(data map[string]interface{}) (found bool) {
+	defer dataDefaultCachedMutex.RUnlock()
+	dataDefaultCachedMutex.RLock()
+
+	if dataDefaultCached != nil {
+		for key, value := range dataDefaultCached {
+			data[key] = value
+		}
+
+		found = true
+		return
+	}
+
+	return
+}
+
+func dataDefault_readWrite(data map[string]interface{}) {
+	defer dataDefaultCachedMutex.Unlock()
+	dataDefaultCachedMutex.Lock()
 
 	if dataDefaultCached != nil {
 		for key, value := range dataDefaultCached {
@@ -25,6 +55,7 @@ func dataDefault() (data map[string]interface{}) {
 	environmentKeys := []string{
 		"site_domain",
 		"site_title",
+		// "site_title_initials",
 		"referral_site_domain",
 		"referral_site_title",
 		"referral_query_key",
@@ -35,10 +66,32 @@ func dataDefault() (data map[string]interface{}) {
 		data[key] = environment.Data.MustGet(key)
 	}
 
-	defer dataDefaultCachedMutex.Unlock()
-	dataDefaultCachedMutex.Lock()
+	{
+		stores, err := model.StoresAll()
+		if err != nil {
+			panic(err)
+		}
 
-	dataDefaultCached = data
+		storesFiltered := make([]string, 0, len(stores))
 
-	return
+		for _, s := range stores {
+			items, err := model.ItemMultipleFromStoreName(s)
+			if err != nil {
+				panic(err)
+			}
+			if len(items) > 0 {
+				storesFiltered = append(storesFiltered, s)
+			}
+		}
+
+		data["stores"] = storesFiltered
+	}
+
+	{
+		dataDefaultCached = make(map[string]interface{})
+
+		for key, value := range data {
+			dataDefaultCached[key] = value
+		}
+	}
 }

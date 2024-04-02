@@ -130,3 +130,24 @@ func itemKeyAtRandom() (guid string) {
 
 	return ItemKeySlice[index]
 }
+
+func ItemMultipleFromStoreName(storeName string) (items []*Item, err error) {
+	defer storeItemsMapMutex.RUnlock()
+	storeItemsMapMutex.RLock()
+
+	if itemKeysSlice, found := storeItemsMap[storeName]; found {
+		for _, key := range *itemKeysSlice {
+			var item *Item
+
+			item, found, err = ItemFromKey([]byte(key))
+			if err != nil {
+				return
+			}
+			if found {
+				items = append(items, item)
+			}
+		}
+	}
+
+	return
+}

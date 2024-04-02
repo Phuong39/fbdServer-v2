@@ -263,7 +263,10 @@ func itemParseFromRemoteStore(rawItem *gofeed.Item, storeName string) (err error
 		return txn.SetEntry(entry)
 	})
 
-	itemAddToKeyMapAndSlice(string(itemKey))
+	itemKeyString := string(itemKey)
+
+	itemAddToKeyMapAndSlice(itemKeyString)
+	storeAddToItemsMap(item.StoreName, itemKeyString)
 
 	// if foundItem {
 	// 	// err = dbItem.Update(

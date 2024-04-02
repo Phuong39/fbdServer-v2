@@ -8,6 +8,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
 	<link rel="stylesheet" href="/static/styles/main.min.css" />
+	<link rel="stylesheet" href="/static/styles/main.css" />
 
 	<script type="text/javascript" src="/static/scripts/main.min.js"></script>
 
@@ -24,8 +25,12 @@
 	<link rel="icon" type="image/png" href="/static/images/favicon.png" />
 </head>
 <body>
-	{{ template "content" . }}
+	<aside class="sidebar">
+		{{ partial "partial/sidebar" . }}
+	</aside>
 
-	{{ partial "partial/footer" . }}
+	<main>
+		{{ template "content" . }}
+	</main>
 </body>
 </html>

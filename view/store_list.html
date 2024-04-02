@@ -3,7 +3,7 @@
 <ol class="stores_list">
 	{{ range $_, $store := .stores }}
 		<li>
-			<a href="https://www.zazzle.com/store/{{ $store }}?{{ $.referral_query_key }}={{ $.referral_query_value }}" target="_blank">
+			<a href="/store/{{ $store }}/items/page/1">
 				{{ $store }}
 			</a>
 		</li>

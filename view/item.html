@@ -7,6 +7,7 @@
 				{{ .item.Title }}
 			</a>
 		</h3>
+
 		<h4 class="item_store_heading">
 			<a href="https://www.zazzle.com/store/{{ .item.StoreName }}?{{ .referral_query_key }}={{ .referral_query_value }}" target="_blank">
 				{{ .item.StoreName }}
@@ -26,5 +27,6 @@
 		{{ end }}
 	</ul>
 
-	{{ partial "partial/nav" . }}
 </div>
+
+{{ partial "partial/nav" . }}

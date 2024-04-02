@@ -1,0 +1,42 @@
+{{ partial "partial/header" . }}
+
+<div class="store_page">
+	<hgroup class="store_headings">
+		{{ if .store_name }}
+			<h3 class="store_name_heading">
+				<a href="https://www.zazzle.com/store/{{ .store_name }}?{{ .referral_query_key }}={{ .referral_query_value }}" target="_blank">
+					{{ .store_name }}
+				</a>
+			</h3>
+		{{ end }}
+
+	</hgroup>
+
+	<div class="items">
+		{{ range $_, $item := .items }}
+			<a href="/store/{{ $item.StoreName }}/item/{{ $item.HashedGUID }}">
+				<div class="item">
+					<h1>{{ $item.Title }}</h1>
+					<img src="{{ $item.ImageURL }}" alt="{{ $item.Title }}" title="{{ $item.Title }}" />
+				</div>
+			</a>
+		{{ end }}
+	</div>
+
+	{{ if (or .prev_page_exists .next_page_exists) }}
+		<nav class="page_navigation">
+			{{ if .prev_page_exists }}
+				<a class="prev_page_link" href="{{ .prev_page_link }}"><button class="prev_page_button" type="button">Prev.</button></a>
+			{{ end }}
+
+			{{ if .page_number }}
+				<h4 class="page_number_heading">page {{ .page_number }}{{ if .page_count }} of {{ .page_count }}{{ end }}</h4>
+			{{ end }}
+
+			{{ if .next_page_exists }}
+				<a class="next_page_link" href="{{ .next_page_link }}"><button class="next_page_button" type="button">Next</button></a>
+			{{ end }}
+		</nav>
+	{{ end }}
+
+</div>

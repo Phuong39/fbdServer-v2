@@ -26,7 +26,7 @@ var (
 		}
 		data["items"] = items
 
-		err = template.Views.ExecuteTemplate(w, "home", "main", data)
+		err = template.Views.ExecuteTemplate(w, "store_page", "main", data)
 		if err != nil {
 			panic(err)
 		}

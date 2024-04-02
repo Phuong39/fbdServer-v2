@@ -100,6 +100,10 @@
 						window.clearTimeout(setMinHeightForItemsTimeoutId);
 					}
 				}, 25);
+
+				window.addEventListener("resize", () => {
+					clearMaxHeightForItems(itemEls);
+				});
 			}
 		};
 	})();

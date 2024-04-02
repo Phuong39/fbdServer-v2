@@ -78,7 +78,9 @@ func storesAll_readWrite() (stores []string, err error) {
 	}
 
 	for _, r := range records {
-		stores = append(stores, strings.TrimSpace(r[0]))
+		s := strings.TrimSpace(r[0])
+
+		stores = append(stores, s)
 	}
 
 	sort.Strings(stores)

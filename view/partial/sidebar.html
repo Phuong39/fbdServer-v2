@@ -1,0 +1,15 @@
+<img class="logo" src="/static/images/gift.png" alt="Gift wrapped with a beautiful bow." />
+
+<div class="stores_list_container">
+	<h3>Stores</h3>
+
+	<ol class="stores_list">
+		{{ range $_, $store := .stores }}
+			<li>
+				<a href="/store/{{ $store }}/items/page/1">
+					{{ $store }}
+				</a>
+			</li>
+		{{ end }}
+	</ol>
+</div>
