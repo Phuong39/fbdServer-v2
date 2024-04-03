@@ -104,12 +104,12 @@ func init() {
 		panic(err)
 	}
 	for _, s := range stores {
-		items, err := model.ItemMultipleFromStoreName(s)
+		items, err := model.ItemMultipleFromStoreName(s.Name)
 		if err != nil {
 			panic(err)
 		}
 		for i, p := 0, 1; i < len(items); i += storeItemsPerPage {
-			sitemapPathAdd(`/store/` + s + `/items/page/` + strconv.Itoa(p))
+			sitemapPathAdd(`/store/` + s.Name + `/items/page/` + strconv.Itoa(p))
 
 			p++
 		}

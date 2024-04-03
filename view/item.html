@@ -48,46 +48,130 @@
 					</td>
 					<td>
 						<a href="{{ .item.LinkURL }}" target="_blank">
-							United States of America<br /><small>(with international shipping)</small>
+							United States of America
+							<br />
+							<small>(with international shipping)</small>
 						</a>
 					</td>
 				</tr>
-				<tr>
-					<td>
-						<a href="{{ .item.LinkURLInternationalGB }}" target="_blank">
-							<img class="flag" src="/static/images/flags/gb.webp" alt="National flag of the United Kingdom of Great Britain and Northern Ireland." />
-						</a>
-					</td>
-					<td>
-						<a href="{{ .item.LinkURLInternationalGB }}" target="_blank">
-							United Kingdom
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<a href="{{ .item.LinkURLInternationalFR }}" target="_blank">
-							<img class="flag" src="/static/images/flags/fr.png" alt="National flag of France." />
-						</a>
-					</td>
-					<td>
-						<a href="{{ .item.LinkURLInternationalFR }}" target="_blank">
-							France
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<a href="{{ .item.LinkURLInternationalES }}" target="_blank">
-							<img class="flag" src="/static/images/flags/es.png" alt="National flag of Spain." />
-						</a>
-					</td>
-					<td>
-						<a href="{{ .item.LinkURLInternationalES }}" target="_blank">
-							España<br /><small style="font-size: 0.875rem;">[Spain]</small>
-						</a>
-					</td>
-				</tr>
+				{{ if (not .store.OnlyUS) }}
+					<tr>
+						<td>
+							<a href="{{ .item.LinkURLInternationalAU }}" target="_blank">
+								<img class="flag" src="/static/images/flags/au.webp" alt="National flag of Australia." />
+							</a>
+						</td>
+						<td>
+							<a href="{{ .item.LinkURLInternationalAU }}" target="_blank">
+								Australia
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="{{ .item.LinkURLInternationalBR }}" target="_blank">
+								<img class="flag" src="/static/images/flags/br.webp" alt="National flag of Brazil." />
+							</a>
+						</td>
+						<td>
+							<a href="{{ .item.LinkURLInternationalBR }}" target="_blank">
+								<span lang="pt">Brasil</span>
+								<br />
+								<small>[Brazil]</small>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="{{ .item.LinkURLInternationalCA }}" target="_blank">
+								<img class="flag" src="/static/images/flags/ca.webp" alt="National flag of Canada." />
+							</a>
+						</td>
+						<td>
+							<a href="{{ .item.LinkURLInternationalGB }}" target="_blank">
+								Canada
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="{{ .item.LinkURLInternationalDE }}" target="_blank">
+								<img class="flag" src="/static/images/flags/de.webp" alt="National flag of Germany." />
+							</a>
+						</td>
+						<td>
+							<a href="{{ .item.LinkURLInternationalDE }}" target="_blank">
+								<span lang="de">Deutschland</span>
+								<br />
+								<small>[Germany]</small>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="{{ .item.LinkURLInternationalES }}" target="_blank">
+								<img class="flag" src="/static/images/flags/es.png" alt="National flag of Spain." />
+							</a>
+						</td>
+						<td>
+							<a href="{{ .item.LinkURLInternationalES }}" target="_blank">
+								<span lang="es">España</span>
+								<br />
+								<small>[Spain]</small>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="{{ .item.LinkURLInternationalFR }}" target="_blank">
+								<img class="flag" src="/static/images/flags/fr.png" alt="National flag of France." />
+							</a>
+						</td>
+						<td>
+							<a href="{{ .item.LinkURLInternationalFR }}" target="_blank">
+								France
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="{{ .item.LinkURLInternationalJP }}" target="_blank">
+								<img class="flag" src="/static/images/flags/jp.png" alt="National flag of Japan." />
+							</a>
+						</td>
+						<td>
+							<a href="{{ .item.LinkURLInternationalJP }}" target="_blank">
+								<span lang="jp">日本</span>
+								<br />
+								<small>[Japan]</small>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="{{ .item.LinkURLInternationalNZ }}" target="_blank">
+								<img class="flag" src="/static/images/flags/nz.png" alt="National flag of New Zealand." />
+							</a>
+						</td>
+						<td>
+							<a href="{{ .item.LinkURLInternationalNZ }}" target="_blank">
+								New Zealand
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="{{ .item.LinkURLInternationalGB }}" target="_blank">
+								<img class="flag" src="/static/images/flags/gb.webp" alt="National flag of the United Kingdom of Great Britain and Northern Ireland." />
+							</a>
+						</td>
+						<td>
+							<a href="{{ .item.LinkURLInternationalGB }}" target="_blank">
+								United Kingdom
+							</a>
+						</td>
+					</tr>
+				{{ end }}
 			</tbody>
 		</table>
 	</div>

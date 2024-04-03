@@ -40,9 +40,19 @@ var (
 			return
 		}
 
+		store, storeFound, err := model.StoreFromName(storeName)
+		if err != nil {
+			panic(err)
+		}
+		if !storeFound {
+			notFoundHandler(w, r)
+			return
+		}
+
 		data := dataDefault()
 
 		data["item"] = item
+		data["store"] = store
 		data["page_title"] = html.UnescapeString(string(item.Title)) + " | " + data["site_title"].(string)
 
 		{ // create page_description

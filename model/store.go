@@ -4,16 +4,22 @@ import (
 	"encoding/csv"
 	"os"
 	"sort"
+	"strconv"
 	"strings"
 	"sync"
 
 	globalFilepath "github.com/theTardigrade/golang-globalFilepath"
 )
 
-type Store string
+type Store struct {
+	Name          string
+	FancyName     string
+	OnlyUS        bool
+	ShowOnSidebar bool
+}
 
 var (
-	storesAllCached       []string
+	storesAllCached       []*Store
 	storesAllCachedInited bool
 	storesAllCachedMutex  sync.RWMutex
 )
@@ -22,7 +28,24 @@ const (
 	storesAllFilePath = "data/stores.csv"
 )
 
-func StoresAll() (stores []string, err error) {
+func StoreFromName(name string) (store *Store, found bool, err error) {
+	allStores, err := StoresAll()
+	if err != nil {
+		return
+	}
+
+	for _, store2 := range allStores {
+		if store2.Name == name {
+			store = store2
+			found = true
+			return
+		}
+	}
+
+	return
+}
+
+func StoresAll() (stores []*Store, err error) {
 	stores, found := storesAll_read(true)
 	if found {
 		return
@@ -36,14 +59,15 @@ func StoresAll() (stores []string, err error) {
 	return
 }
 
-func storesAll_read(useMutex bool) (stores []string, found bool) {
+func storesAll_read(useMutex bool) (stores []*Store, found bool) {
 	if useMutex {
 		defer storesAllCachedMutex.RUnlock()
 		storesAllCachedMutex.RLock()
 	}
 
 	if storesAllCachedInited {
-		stores = storesAllCached[:]
+		stores = make([]*Store, len(storesAllCached))
+		copy(stores, storesAllCached)
 		found = true
 
 		return
@@ -52,7 +76,7 @@ func storesAll_read(useMutex bool) (stores []string, found bool) {
 	return
 }
 
-func storesAll_readWrite() (stores []string, err error) {
+func storesAll_readWrite() (stores []*Store, err error) {
 	defer storesAllCachedMutex.Unlock()
 	storesAllCachedMutex.Lock()
 
@@ -78,14 +102,34 @@ func storesAll_readWrite() (stores []string, err error) {
 	}
 
 	for _, r := range records {
-		s := strings.TrimSpace(r[0])
+		var onlyUS, showOnSidebar bool
 
-		stores = append(stores, s)
+		onlyUS, err = strconv.ParseBool(r[2])
+		if err != nil {
+			return
+		}
+
+		showOnSidebar, err = strconv.ParseBool(r[3])
+		if err != nil {
+			return
+		}
+
+		s := Store{
+			Name:          strings.TrimSpace(r[0]),
+			FancyName:     strings.TrimSpace(r[1]),
+			OnlyUS:        onlyUS,
+			ShowOnSidebar: showOnSidebar,
+		}
+
+		stores = append(stores, &s)
 	}
 
-	sort.Strings(stores)
+	sort.Slice(stores, func(i, j int) bool {
+		return stores[i].Name < stores[j].Name
+	})
 
-	storesAllCached = stores[:]
+	storesAllCached = make([]*Store, len(stores))
+	copy(storesAllCached, stores)
 	storesAllCachedInited = true
 
 	return

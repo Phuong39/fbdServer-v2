@@ -292,7 +292,11 @@ main > .item_profile > .international table tr > th {
 	padding: 0.125rem 0.5rem;
 }
 
-main > .item_profile > .international img.flag {
+main > .item_profile > .international table tr > td small {
+    font-size: 0.8125rem;
+}
+
+main > .item_profile > .international table tr > td img.flag {
     max-width: 4rem;
     border-radius: 0.2rem;
     margin: 0 auto;
@@ -303,7 +307,7 @@ main > .item_profile > .description {
 }
 
 main nav {
-	margin-top: 1rem;
+	margin-top: 1.25rem;
 	font-size: 1.25rem;
 	font-weight: 700;
 }

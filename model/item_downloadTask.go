@@ -50,7 +50,7 @@ func itemsDownloadAllFromRemoteStore() (err error) {
 	}
 
 	{
-		stores2 := make([]string, len(stores))
+		stores2 := make([]*Store, len(stores))
 
 		copy(stores2, stores)
 
@@ -71,7 +71,7 @@ func itemsDownloadAllFromRemoteStore() (err error) {
 		})
 
 		for _, q := range queryStrings {
-			if err = itemsDownloadFromRemoteStore(store, 1, q); err != nil {
+			if err = itemsDownloadFromRemoteStore(store.Name, 1, q); err != nil {
 				return
 			}
 		}

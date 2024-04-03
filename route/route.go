@@ -72,10 +72,10 @@ func dataDefault_readWrite(data map[string]interface{}) {
 			panic(err)
 		}
 
-		storesFiltered := make([]string, 0, len(stores))
+		storesFiltered := make([]*model.Store, 0, len(stores))
 
 		for _, s := range stores {
-			items, err := model.ItemMultipleFromStoreName(s)
+			items, err := model.ItemMultipleFromStoreName(s.Name)
 			if err != nil {
 				panic(err)
 			}

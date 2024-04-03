@@ -4,12 +4,12 @@
 	<h3>Stores</h3>
 
 	<ol class="stores_list">
-		{{ range $_, $store := .stores }}
-			<li>
-				<a href="/store/{{ $store }}/items/page/1">
-					{{ $store }}
-				</a>
-			</li>
+		{{ range $_, $s := .stores }}
+			{{ if $s.ShowOnSidebar }}
+				<li>
+					<a href="/store/{{ $s.Name }}/items/page/1">{{ $s.Name }}</a>
+				</li>
+			{{ end }}
 		{{ end }}
 	</ol>
 </div>
