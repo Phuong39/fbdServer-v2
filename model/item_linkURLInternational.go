@@ -9,7 +9,7 @@ func (item *Item) LinkURLInternationalAU() (linkURL string) {
 }
 
 func (item *Item) LinkURLInternationalBR() (linkURL string) {
-	linkURL = strings.Replace(item.LinkURL, ".com/", ".br/", 1) + "&lang=pt"
+	linkURL = strings.Replace(item.LinkURL, ".com/", ".com.br/", 1) + "&langpt"
 
 	return
 }
