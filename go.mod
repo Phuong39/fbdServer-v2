@@ -4,10 +4,9 @@ go 1.20
 
 require (
 	github.com/dgraph-io/badger/v4 v4.2.0
-	github.com/go-zoo/bone v1.3.0
 	github.com/kataras/blocks v0.0.8
 	github.com/mmcdole/gofeed v1.3.0
-	github.com/theTardigrade/golang-basicServer v1.0.3
+	github.com/theTardigrade/golang-basicServer v1.0.4
 	github.com/theTardigrade/golang-envStore v1.0.1
 	github.com/theTardigrade/golang-globalFilepath v1.1.0
 	github.com/theTardigrade/golang-hash v1.4.3
@@ -21,6 +20,7 @@ require (
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/dgraph-io/ristretto v0.1.1 // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect
+	github.com/go-zoo/bone v1.3.0 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/glog v1.0.0 // indirect
 	github.com/golang/groupcache v0.0.0-20190702054246-869f871628b6 // indirect

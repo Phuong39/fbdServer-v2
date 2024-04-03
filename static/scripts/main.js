@@ -1,5 +1,34 @@
 ((window, document, console) => {
 
+	const enableDisabledInternationalTableRows = () => {
+		const rowEls = document.querySelectorAll("main>.item_profile>.international>table tr.disabled");
+
+		if (rowEls.length === 0) {
+			return;
+		}
+
+		for (const rowEl of rowEls) {
+			const linkEl = rowEl.querySelector("td a");
+
+			if (!linkEl) {
+				continue;
+			}
+
+			const linkHref = linkEl.getAttribute("href");
+
+			fetch(linkHref, {
+				mode: "no-cors",
+			}).then((response) => {
+				console.log(response.status, linkHref, response);
+				if (response.status === 200) {
+					rowEl.classList.remove("disabled");
+				}
+			}).catch((err) => {
+				console.error(err);
+			})
+		}
+	};
+
 	const getExt = (fileURL, ext) => {
 		let extLocal = ext;
 
@@ -105,6 +134,8 @@
 					clearMaxHeightForItems(itemEls);
 				});
 			}
+
+			enableDisabledInternationalTableRows();
 		};
 	})();
 

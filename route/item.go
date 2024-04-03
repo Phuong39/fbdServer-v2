@@ -7,10 +7,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/go-zoo/bone"
 	"github.com/theTardigrade/fbdServer-v2/model"
 	"github.com/theTardigrade/fbdServer-v2/options"
 	"github.com/theTardigrade/fbdServer-v2/template"
+	basicServer "github.com/theTardigrade/golang-basicServer"
 	tasks "github.com/theTardigrade/golang-tasks"
 )
 
@@ -26,8 +26,10 @@ var (
 			}
 		}()
 
-		storeName := bone.GetValue(r, "storeName")
-		hashedGUID := bone.GetValue(r, "itemHashedGUID")
+		rValues := basicServer.ValuesMapFromRequest(r)
+
+		storeName := rValues["storeName"]
+		hashedGUID := rValues["itemHashedGUID"]
 
 		item, itemFound, err := model.ItemFromHashedGUID(hashedGUID)
 		if err != nil {

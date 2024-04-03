@@ -12,7 +12,8 @@ var (
 		CertFilePath: "certificate/key.cer",
 		KeyFilePath:  "certificate/key.key",
 		Routes: basicServer.OptionsRoutes{
-			Get: map[string]http.Handler{},
+			Get:  map[string]http.Handler{},
+			Post: map[string]http.Handler{},
 		},
 	}
 )

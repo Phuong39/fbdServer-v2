@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/go-zoo/bone"
 	"github.com/theTardigrade/fbdServer-v2/environment"
 	"github.com/theTardigrade/fbdServer-v2/options"
+	basicServer "github.com/theTardigrade/golang-basicServer"
 )
 
 var (
@@ -18,7 +18,7 @@ var (
 			}
 		}()
 
-		numberRaw := bone.GetValue(r, "number")
+		numberRaw := basicServer.ValueFromRequest(r, "number")
 		if numberRaw == "" {
 			notFoundHandler(w, r)
 			return
@@ -43,8 +43,12 @@ var (
 			defer sitemapPathsMutex.RUnlock()
 			sitemapPathsMutex.RLock()
 
+			if endIndex > len(sitemapPathsSlice) {
+				endIndex = len(sitemapPathsSlice)
+			}
+
 			if startIndex < len(sitemapPathsSlice) {
-				for i := startIndex; i < endIndex && i < len(sitemapPathsSlice); i++ {
+				for i := startIndex; i < endIndex; i++ {
 					path := sitemapPathsSlice[i]
 
 					buffer.WriteString(`<url>`)

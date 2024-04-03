@@ -27,6 +27,70 @@
 		{{ end }}
 	</ul>
 
+	<hr />
+
+	<div class="international">
+		<h5 class="international_heading">Buy From a Local Store</h5>
+
+		<table>
+			<thead>
+				<tr>
+					<th>National Flag</th>
+					<th>Country</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<a href="{{ .item.LinkURL }}" target="_blank">
+							<img class="flag" src="/static/images/flags/us.webp" alt="National flag of the United States of America." />
+						</a>
+					</td>
+					<td>
+						<a href="{{ .item.LinkURL }}" target="_blank">
+							United States of America<br /><small>(with international shipping)</small>
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<a href="{{ .item.LinkURLInternationalGB }}" target="_blank">
+							<img class="flag" src="/static/images/flags/gb.webp" alt="National flag of the United Kingdom of Great Britain and Northern Ireland." />
+						</a>
+					</td>
+					<td>
+						<a href="{{ .item.LinkURLInternationalGB }}" target="_blank">
+							United Kingdom
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<a href="{{ .item.LinkURLInternationalFR }}" target="_blank">
+							<img class="flag" src="/static/images/flags/fr.png" alt="National flag of France." />
+						</a>
+					</td>
+					<td>
+						<a href="{{ .item.LinkURLInternationalFR }}" target="_blank">
+							France
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<a href="{{ .item.LinkURLInternationalES }}" target="_blank">
+							<img class="flag" src="/static/images/flags/es.png" alt="National flag of Spain." />
+						</a>
+					</td>
+					<td>
+						<a href="{{ .item.LinkURLInternationalES }}" target="_blank">
+							España<br /><small style="font-size: 0.875rem;">[Spain]</small>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
 
 {{ partial "partial/nav" . }}

@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/go-zoo/bone"
 	"github.com/theTardigrade/fbdServer-v2/model"
 	"github.com/theTardigrade/fbdServer-v2/options"
 	"github.com/theTardigrade/fbdServer-v2/template"
+	basicServer "github.com/theTardigrade/golang-basicServer"
 )
 
 const (
@@ -23,8 +23,10 @@ var (
 			}
 		}()
 
-		storeName := bone.GetValue(r, "storeName")
-		pageNumberRaw := bone.GetValue(r, "pageNumber")
+		rValues := basicServer.ValuesMapFromRequest(r)
+
+		storeName := rValues["storeName"]
+		pageNumberRaw := rValues["pageNumber"]
 		pageNumber, err := strconv.Atoi(pageNumberRaw)
 		if err != nil || pageNumber < 1 {
 			notFoundHandler(w, r)
