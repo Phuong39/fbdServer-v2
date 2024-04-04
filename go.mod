@@ -6,6 +6,7 @@ require (
 	github.com/dgraph-io/badger/v4 v4.2.0
 	github.com/kataras/blocks v0.0.8
 	github.com/mmcdole/gofeed v1.3.0
+	github.com/tdewolff/minify v2.3.6+incompatible
 	github.com/theTardigrade/golang-basicServer v1.0.4
 	github.com/theTardigrade/golang-envStore v1.0.1
 	github.com/theTardigrade/golang-globalFilepath v1.1.0
@@ -34,11 +35,13 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
+	github.com/tdewolff/parse v2.3.4+incompatible // indirect
+	github.com/tdewolff/test v1.0.11-0.20240106005702-7de5f7df4739 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	go.opencensus.io v0.22.5 // indirect
 	golang.org/x/exp v0.0.0-20230905200255-921286631fa9 // indirect
 	golang.org/x/net v0.7.0 // indirect
-	golang.org/x/sys v0.12.0 // indirect
+	golang.org/x/sys v0.16.0 // indirect
 	golang.org/x/text v0.7.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 )
