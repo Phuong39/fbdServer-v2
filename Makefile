@@ -1,6 +1,7 @@
 
+all: update
 
 update:
-git pull
-go install
-pkill -2 fbdServer-v2
+	git pull
+	go install
+	pkill -2 fbdServer-v2
