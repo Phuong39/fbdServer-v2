@@ -241,13 +241,13 @@ func itemParseFromRemoteStore(rawItem *gofeed.Item, storeName string) (err error
 	var hashedGUID string
 
 	{
-		hashedGUID = hash.Uint128String(guid).Text(16)
+		hashedGUID = strconv.FormatUint(uint64(hash.Uint32String(guid)), 16)
 
 		for i := len(hashedGUID); i < 4; i++ {
 			hashedGUID = "0" + hashedGUID
 		}
 
-		hashedGUID = hashedGUID[:4]
+		hashedGUID = hashedGUID[len(hashedGUID)-4:]
 
 		hashedGUID += strconv.FormatUint(hash.Uint64String(guid), 16)
 	}
