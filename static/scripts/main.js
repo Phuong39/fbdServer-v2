@@ -65,14 +65,14 @@
 		});
 	};
 
-	const clearMaxHeightForItems = (itemEls) => {
+	const clearMinHeightForItems = (itemEls) => {
 		for (const itemEl of itemEls) {
-			delete itemEl.style.minHeight;
+			itemEl.style.minHeight = "0";
 		}
 	};
 
 	const setMinHeightForItems = (itemEls) => {
-		clearMaxHeightForItems(itemEls);
+		clearMinHeightForItems(itemEls);
 
 		let minHeight = 0;
 
