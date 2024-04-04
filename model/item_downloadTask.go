@@ -243,7 +243,7 @@ func itemParseFromRemoteStore(rawItem *gofeed.Item, storeName string) (err error
 	{
 		hashedGUID = hash.Uint128String(guid).Text(16)
 
-		if len(hashedGUID) > 2 {
+		if len(hashedGUID) > 4 {
 			hashedGUID = hashedGUID[:4]
 		}
 
