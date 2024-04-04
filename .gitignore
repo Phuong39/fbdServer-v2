@@ -1,5 +1,6 @@
 certificate/
 data/badger/
 data/*.env
+static/**/*.min.*
 
 *.exe
