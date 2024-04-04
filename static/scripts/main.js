@@ -1,31 +1,23 @@
 ((window, document, console) => {
 
-	const enableDisabledInternationalTableRows = () => {
-		const rowEls = document.querySelectorAll("main>.item_profile>.international>table tr.disabled");
+	const convertFlagImagesToDivEls = () => {
+		const flagImageEls = document.querySelectorAll("main .international img.flag");
 
-		if (rowEls.length === 0) {
+		if (flagImageEls.length === 0) {
 			return;
 		}
 
-		for (const rowEl of rowEls) {
-			const linkEl = rowEl.querySelector("td a");
+		for (const el of flagImageEls) {
+			const src = el.getAttribute("src");
 
-			if (!linkEl) {
-				continue;
+			if (src) {
+				const divEl = document.createElement("div");
+
+				divEl.className = "flag";
+				divEl.style.backgroundImage = `url("${ window.encodeURI(src) }")`;
+
+				el.parentElement.replaceChild(divEl, el);
 			}
-
-			const linkHref = linkEl.getAttribute("href");
-
-			fetch(linkHref, {
-				mode: "no-cors",
-			}).then((response) => {
-				console.log(response.status, linkHref, response);
-				if (response.status === 200) {
-					rowEl.classList.remove("disabled");
-				}
-			}).catch((err) => {
-				console.error(err);
-			})
 		}
 	};
 
@@ -135,7 +127,7 @@
 				});
 			}
 
-			enableDisabledInternationalTableRows();
+			convertFlagImagesToDivEls();
 		};
 	})();
 

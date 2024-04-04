@@ -100,7 +100,8 @@ func itemsDownloadFromRemoteStore(storeName string, pageNumber int, queryString 
 
 		parser := gofeed.NewParser()
 		feedURL := fmt.Sprintf(
-			"https://feed.zazzle.com/store/%s/rss?ps=%d&pg=%d&isz=huge",
+			"https://feed.%s/store/%s/rss?ps=%d&pg=%d&isz=huge",
+			environment.Data.MustGet("referral_site_domain"),
 			storeName,
 			itemsDownloadPerFeed,
 			pageNumber,
@@ -153,10 +154,10 @@ func itemsDownloadFromRemoteStore(storeName string, pageNumber int, queryString 
 		return
 	}
 
-	// if environment.IsDevelopmentMode {
-	log.Printf("DOWNLOAD STORE ITEMS: %s (page %d) (%d items per page) (%d results) (%s)\n",
-		storeName, pageNumber, itemsDownloadPerFeed, totalResults, queryString)
-	// }
+	if environment.IsDevelopmentMode {
+		log.Printf("DOWNLOAD STORE ITEMS: %s (page %d) (%d items per page) (%d results) (%s)\n",
+			storeName, pageNumber, itemsDownloadPerFeed, totalResults, queryString)
+	}
 
 	if totalResults > itemsDownloadPerFeed*pageNumber {
 		itemsDownloadFromRemoteStore(storeName, pageNumber+1, queryString)

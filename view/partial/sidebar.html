@@ -5,11 +5,11 @@
 
 	<ol class="stores_list">
 		{{ range $_, $s := .stores }}
-			{{ if $s.ShowOnSidebar }}
+			<!-- {{ if $s.ShowOnSidebar }} -->
 				<li>
 					<a href="/store/{{ $s.Name }}/items/page/1">{{ $s.Name }}</a>
 				</li>
-			{{ end }}
+			<!-- {{ end }} -->
 		{{ end }}
 	</ol>
 </div>

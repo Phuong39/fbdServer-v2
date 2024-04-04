@@ -216,6 +216,8 @@ main > .item_profile {
 	background-color: rgba(255, 255, 255, 0.25);
 	border-top-left-radius: 1rem;
 	border-top-right-radius: 1rem;
+	border-bottom-left-radius: 0.5rem;
+	border-bottom-right-radius: 0.5rem;
 }
 
 main > .item_profile img {
@@ -296,10 +298,16 @@ main > .item_profile > .international table tr > td small {
     font-size: 0.8125rem;
 }
 
-main > .item_profile > .international table tr > td img.flag {
-    max-width: 4rem;
+main > .item_profile > .international table tr > td .flag {
+    width: 4rem;
+	height: 2.125rem;
     border-radius: 0.2rem;
     margin: 0 auto;
+	background-size: cover;
+	background-position: center;
+	border-color: var(--main-link-color);
+	border-width: 0.0625rem;
+	border-style: solid;
 }
 
 main > .item_profile > .description {
