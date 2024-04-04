@@ -31,7 +31,7 @@ body {
 
 body > .sidebar {
 	width: 100%;
-	max-width: 11rem;
+	max-width: 12rem;
 	min-height: 100%;
     display: block;
     overflow-y: auto;
@@ -76,7 +76,7 @@ body > .sidebar > a:first-child {
 body > .sidebar ul li,
 body > .sidebar ol li {
 	list-style-type: none;
-	margin-bottom: 0.5rem;
+	margin-bottom: 0.75rem;
 }
 
 body > .sidebar ul li:last-of-type,
@@ -127,18 +127,30 @@ main .items {
 }
 
 @media (max-width: 80rem) {
+	body > .sidebar {
+		max-width: 11.5rem;
+	}
+
 	main .items {
 		grid-template-columns: repeat(6, 1fr);
 	}
 }
 
 @media (max-width: 70rem) {
+	body > .sidebar {
+		max-width: 11rem;
+	}
+
 	main .items {
 		grid-template-columns: repeat(5, 1fr);
 	}
 }
 
 @media (max-width: 60rem) {
+	body > .sidebar {
+		max-width: 10.5rem;
+	}
+
 	main .items {
 		grid-template-columns: repeat(4, 1fr);
 	}
