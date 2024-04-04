@@ -7,6 +7,10 @@ import (
 	"github.com/theTardigrade/fbdServer-v2/options"
 )
 
+const (
+	itemRandomAttempts = 16
+)
+
 var (
 	itemRandomGetHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		defer func() {
@@ -15,9 +19,22 @@ var (
 			}
 		}()
 
-		item, found, err := model.ItemAtRandom()
-		if err != nil || !found {
-			panic(err)
+		var item *model.Item
+		var itemFound bool
+		var err error
+
+		for i := 0; i < itemRandomAttempts; i++ {
+			item, itemFound, err = model.ItemAtRandom()
+			if err != nil {
+				panic(err)
+			}
+			if itemFound {
+				break
+			}
+		}
+		if !itemFound {
+			serverErrorHandler(w, r)
+			return
 		}
 
 		http.Redirect(w, r, `/store/`+item.StoreName+`/item/`+item.HashedGUID, http.StatusSeeOther)
