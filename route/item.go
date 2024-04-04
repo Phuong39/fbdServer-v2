@@ -53,7 +53,10 @@ var (
 
 		data["item"] = item
 		data["store"] = store
-		data["page_title"] = html.UnescapeString(string(item.Title)) + " | " + data["site_title"].(string)
+		data["twitter_card_type"] = "summary_large_image"
+		data["twitter_card_image"] = item.ImageURL
+		data["twitter_card_title"] = html.UnescapeString(string(item.Title))
+		data["page_title"] = data["twitter_card_title"].(string) + " | " + data["site_title"].(string)
 
 		{ // create page_description
 			description := html.UnescapeString(string(item.Description))

@@ -21,6 +21,24 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+	{{ if .twitter_card_type }}
+		<meta name="twitter:card" content="{{ .twitter_card_type }}">
+
+		{{ if .twitter_card_image}}
+			<meta name="twitter:image" content="{{ .twitter_card_image }}">
+		{{end }}
+
+		{{ if .twitter_card_title }}
+			<meta name="twitter:title" content="{{ .twitter_card_title }}">
+		{{ end }}
+
+		{{ if .twitter_card_description }}
+			<meta name="twitter:description" content="{{ .twitter_card_description }}">
+		{{ else if .page_description }}
+			<meta name="twitter:description" content="{{ .page_description }}">
+		{{ end }}
+	{{ end }}
+
 	<link rel="icon" type="image/png" href="/static/images/favicon.png" />
 </head>
 <body>
