@@ -248,6 +248,7 @@ main > .item_profile img {
 	border-radius: 1rem;
 	margin-top: 1.75rem;
 	margin-bottom: 1.25rem;
+	width: 100%;
 	max-width: 25rem;
 }
 
