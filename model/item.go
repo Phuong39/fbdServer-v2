@@ -72,7 +72,10 @@ func ItemMultipleAtRandomWithAttempts(itemCount, attemptCount int) (items []*Ite
 }
 
 func ItemAtRandom() (item *Item, found bool, err error) {
-	key := itemKeyAtRandom()
+	key, found := itemKeyAtRandom()
+	if !found {
+		return
+	}
 
 	return ItemFromKey([]byte(key))
 }
@@ -122,13 +125,22 @@ func ItemFromKey(key []byte) (item *Item, found bool, err error) {
 	return
 }
 
-func itemKeyAtRandom() (guid string) {
+func itemKeyAtRandom() (guid string, found bool) {
 	defer itemKeyMapAndSliceMutex.RUnlock()
 	itemKeyMapAndSliceMutex.RLock()
 
-	index := rand.Intn(len(ItemKeySlice))
+	itemsLen := len(ItemKeySlice)
 
-	return ItemKeySlice[index]
+	if (itemsLen) == 0 {
+		return
+	}
+
+	index := rand.Intn(itemsLen)
+
+	guid = ItemKeySlice[index]
+	found = true
+
+	return
 }
 
 func ItemMultipleFromStoreName(storeName string) (items []*Item, err error) {

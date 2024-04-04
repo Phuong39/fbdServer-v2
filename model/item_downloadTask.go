@@ -238,12 +238,28 @@ func itemParseFromRemoteStore(rawItem *gofeed.Item, storeName string) (err error
 		}
 	}
 
+	var hashedGUID string
+
+	{
+		hashedGUID = hash.Uint128String(guid).Text(16)
+
+		if len(hashedGUID) > 2 {
+			hashedGUID = hashedGUID[:4]
+		}
+
+		for i := len(hashedGUID); i < 4; i++ {
+			hashedGUID = "0" + hashedGUID
+		}
+
+		hashedGUID += strconv.FormatUint(hash.Uint64String(guid), 16)
+	}
+
 	item := Item{
 		StoreName:   storeName,
 		LinkURL:     parsedLinkURL.String(),
 		ImageURL:    parsedImageURL.String(),
 		GUID:        guid,
-		HashedGUID:  hash.Uint256String(guid).Text(35),
+		HashedGUID:  hashedGUID,
 		Title:       title,
 		Description: description,
 		Keywords:    keywords,
