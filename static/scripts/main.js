@@ -111,6 +111,10 @@
 			const itemEls = document.querySelectorAll(".items .item");
 
 			if (itemEls && itemEls.length > 0) {
+				window.addEventListener("resize", () => {
+					setMinHeightForItems(itemEls);
+				});
+
 				setMinHeightForItems(itemEls);
 
 				let setMinHeightForItemsIterations = 50;
@@ -121,10 +125,6 @@
 						window.clearTimeout(setMinHeightForItemsTimeoutId);
 					}
 				}, 25);
-
-				window.addEventListener("resize", () => {
-					clearMaxHeightForItems(itemEls);
-				});
 			}
 
 			convertFlagImagesToDivEls();

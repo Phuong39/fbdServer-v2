@@ -143,6 +143,16 @@ main .items {
 }
 
 @media (max-width: 50rem) {
+	body {
+		flex-direction: column-reverse;
+	}
+
+	body > .sidebar {
+		max-width: 100%;
+		margin-top: 1rem;
+		padding: 1rem 0.75rem;
+	}
+
 	main .items {
 		grid-template-columns: repeat(3, 1fr);
 	}
