@@ -224,6 +224,9 @@ main .items {
 		max-width: 100%;
 		margin-top: 1rem;
 		padding: 1rem 0.75rem;
+		border-width: 0;
+		border-top-width: 0.0625rem;
+		border-bottom-width: 0.0625rem;
 	}
 
 	main .items {
