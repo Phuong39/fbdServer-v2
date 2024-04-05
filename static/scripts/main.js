@@ -92,9 +92,13 @@
 
 		const fileData = [
 			{
+				u: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap",
+				e: "css",
+			},
+			{
 				u: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap",
 				e: "css",
-			}
+			},
 		];
 
 		return () => {
