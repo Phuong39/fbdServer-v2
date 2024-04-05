@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"html/template"
 	"log"
-	"math/rand"
 	"net/url"
 	"sort"
 	"strconv"
@@ -18,6 +17,7 @@ import (
 	"github.com/mmcdole/gofeed"
 	"github.com/theTardigrade/fbdServer-v2/database"
 	"github.com/theTardigrade/fbdServer-v2/environment"
+	"github.com/theTardigrade/fbdServer-v2/random"
 	hash "github.com/theTardigrade/golang-hash"
 	tasks "github.com/theTardigrade/golang-tasks"
 )
@@ -59,7 +59,7 @@ func itemsDownloadAllFromRemoteStore() (err error) {
 
 	// random sort
 	sort.Slice(stores, func(i, j int) bool {
-		return rand.Float64() >= 0.5
+		return random.Rand.Float64() >= 0.5
 	})
 
 	for _, store := range stores {
@@ -67,7 +67,7 @@ func itemsDownloadAllFromRemoteStore() (err error) {
 
 		// random sort
 		sort.Slice(queryStrings, func(i, j int) bool {
-			return rand.Float64() >= 0.5
+			return random.Rand.Float64() >= 0.5
 		})
 
 		for _, q := range queryStrings {

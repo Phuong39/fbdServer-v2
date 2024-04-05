@@ -4,11 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"html/template"
-	"math/rand"
 	"time"
 
 	"github.com/dgraph-io/badger/v4"
 	"github.com/theTardigrade/fbdServer-v2/database"
+	"github.com/theTardigrade/fbdServer-v2/random"
 )
 
 type Item struct {
@@ -135,7 +135,7 @@ func itemKeyAtRandom() (guid string, found bool) {
 		return
 	}
 
-	index := rand.Intn(itemsLen)
+	index := random.Rand.Intn(itemsLen)
 
 	guid = ItemKeySlice[index]
 	found = true
