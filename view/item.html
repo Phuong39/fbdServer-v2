@@ -54,7 +54,7 @@
 						</a>
 					</td>
 				</tr>
-				{{ if (not .store.OnlyUS) }}
+				{{ if (and (not .store.OnlyUS) (not .item.OnlyUS)) }}
 					<tr>
 						<td>
 							<a href="{{ .item.LinkURLInternationalAU }}" target="_blank">
