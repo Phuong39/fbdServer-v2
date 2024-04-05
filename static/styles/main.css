@@ -35,13 +35,16 @@ body > .sidebar {
 	width: 100%;
 	max-width: 12rem;
 	min-height: 100%;
-    display: block;
-    overflow-y: auto;
-    padding: 1rem;
+	display: block;
+	overflow-y: auto;
+	padding: 1rem;
 	background-color: var(--sidebar-background-color);
 	color: var(--sidebar-text-color);
-    margin: -1rem;
-    margin-right: 0.5rem;
+	margin: -1rem;
+	margin-right: 0.5rem;
+	border-style: solid;
+	border-color: var(--main-text-color);
+	border-right-width: 0.0625rem;
 }
 
 body > .sidebar img.logo {
@@ -88,9 +91,9 @@ body > .sidebar ol li:last-of-type {
 
 body > .sidebar ul li:nth-child(odd),
 body > .sidebar ol li:nth-child(odd) {
-    background-color: rgba(0, 0, 0, 0.125);
-    padding: 0.5rem;
-    margin: 0.5rem -1rem;
+	background-color: rgba(0, 0, 0, 0.125);
+	padding: 0.5rem;
+	margin: 0.5rem -1rem;
 }
 
 body > main {
@@ -121,7 +124,7 @@ main header > a {
 main header h1 {
 	font-size: 4rem;
 	font-weight: 500;
-    display: inline-block;
+	display: inline-block;
 	line-height: 0.875;
 }
 
@@ -197,6 +200,10 @@ main .items {
 
 main .items .item {
 	position: relative;
+	border-style: solid;
+	border-color: var(--main-text-color);
+	border-width: 0.0625rem;
+	border-radius: 0.375rem;
 }
 
 main .items .item::after {
@@ -254,6 +261,9 @@ main > .item_profile {
 	border-top-right-radius: 1rem;
 	border-bottom-left-radius: 0.5rem;
 	border-bottom-right-radius: 0.5rem;
+    border-style: solid;
+    border-color: var(--main-text-color);
+    border-width: 0.0625rem;
 }
 
 main > .item_profile img {
@@ -262,6 +272,9 @@ main > .item_profile img {
 	margin-bottom: 1.25rem;
 	width: 100%;
 	max-width: 25rem;
+    border-style: solid;
+    border-color: var(--main-text-color);
+    border-width: 0.0625rem;
 }
 
 main > .item_profile > .item_headings > .item_title_heading {
@@ -302,9 +315,9 @@ main > .store_page > .store_headings > .store_name_heading::before {
 }
 
 main > .item_profile > hr {
-    border-style: double;
-    border-color: var(--main-text-color);
-    border-width: 0.1875rem 0 0 0;
+	border-style: double;
+	border-color: var(--main-text-color);
+	border-width: 0.1875rem 0 0 0;
 	margin: 1.5rem -1rem 1rem;
 }
 
@@ -332,14 +345,14 @@ main > .item_profile > .international table tr > th {
 }
 
 main > .item_profile > .international table tr > td small {
-    font-size: 0.8125rem;
+	font-size: 0.8125rem;
 }
 
 main > .item_profile > .international table tr > td .flag {
-    width: 4rem;
+	width: 4rem;
 	height: 2.125rem;
-    border-radius: 0.2rem;
-    margin: 0 auto;
+	border-radius: 0.2rem;
+	margin: 0 auto;
 	background-size: cover;
 	background-position: center;
 	border-color: var(--main-link-color);
@@ -407,13 +420,13 @@ main nav.page_navigation button {
 	background-color: var(--main-link-color);
 	color: var(--sidebar-text-color);
 	border-color: var(--main-link-color);
-    border-radius: 0.375rem;
+	border-radius: 0.375rem;
 }
 
 main nav.page_navigation > .page_number_heading {
 	/* margin-top: 0.25rem; */
 	font-weight: 400;
-    font-size: 1rem;
+	font-size: 1rem;
 	display: inline-block;
 	margin: 0 0.125rem;
 }
