@@ -121,6 +121,7 @@ main header > a {
 main header h1 {
 	font-family: var(--font-family-serif);
 	font-size: 4rem;
+	font-weight: 500;
     display: inline-block;
 	line-height: 0.875;
 }
