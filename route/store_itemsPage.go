@@ -52,7 +52,7 @@ var (
 
 		data["page_count"] = pageCount
 		data["page_number"] = pageNumber
-		data["page_description"] = `The items of the ` + storeName + ` store are listed here on ` + data["site_title"].(string) +
+		data["page_description"] = `High-quality customizable items from the ` + storeName + ` store are listed here on ` + data["site_title"].(string) +
 			`. Page ` + pageNumberRaw + ` of ` + strconv.Itoa(pageCount) + `.`
 
 		itemsStartIndex := storeItemsPerPage * (pageNumber - 1)
