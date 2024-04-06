@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"math"
 	"net/http"
+	"sort"
 	"strconv"
 	"sync"
 
@@ -29,6 +30,8 @@ func sitemapPathAdd(path string) {
 		sitemapPathsMap[path] = struct{}{}
 		sitemapPathsSlice = append(sitemapPathsSlice, path)
 	}
+
+	sort.Strings(sitemapPathsSlice)
 }
 
 func sitemapPathAddMany(paths []string) {
@@ -41,6 +44,8 @@ func sitemapPathAddMany(paths []string) {
 			sitemapPathsSlice = append(sitemapPathsSlice, path)
 		}
 	}
+
+	sort.Strings(sitemapPathsSlice)
 }
 
 func sitemapPathCount() int {
