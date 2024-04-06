@@ -63,8 +63,8 @@ var (
 
 		var buffer bytes.Buffer
 
-		buffer.WriteString(`<?xml version="1.0" encoding="utf-8"?>`)
-		buffer.WriteString(`<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`)
+		buffer.WriteString(`<?xml version="1.0" encoding="utf-8"?>` + "\n")
+		buffer.WriteString(`<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">` + "\n")
 
 		for i := 1; i <= subCount; i++ {
 			buffer.WriteString(`<sitemap>`)
@@ -72,7 +72,7 @@ var (
 			buffer.WriteString(`</sitemap>`)
 		}
 
-		buffer.WriteString(`</sitemapindex>`)
+		buffer.WriteString("\n" + `</sitemapindex>`)
 
 		w.WriteHeader(http.StatusOK)
 		w.Write(buffer.Bytes())

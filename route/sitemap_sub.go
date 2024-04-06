@@ -33,8 +33,8 @@ var (
 		var buffer bytes.Buffer
 		var urlCount int
 
-		buffer.WriteString(`<?xml version="1.0" encoding="UTF-8"?>`)
-		buffer.WriteString(`<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">`)
+		buffer.WriteString(`<?xml version="1.0" encoding="UTF-8"?>` + "\n")
+		buffer.WriteString(`<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">` + "\n")
 
 		func(siteDomain string) {
 			startIndex := sitemapPathsPerSub * (number - 1)
@@ -68,7 +68,7 @@ var (
 			return
 		}
 
-		buffer.WriteString(`</urlset>`)
+		buffer.WriteString("\n" + `</urlset>`)
 
 		w.WriteHeader(http.StatusOK)
 		w.Write(buffer.Bytes())
