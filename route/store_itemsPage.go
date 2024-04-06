@@ -54,7 +54,17 @@ var (
 		data["page_number"] = pageNumber
 		data["page_description"] = `High-quality customizable items from the ` + storeName + ` store are listed here on ` + data["site_title"].(string) +
 			`. Page ` + pageNumberRaw + ` of ` + strconv.Itoa(pageCount) + `.`
-		data["store_page_text"] = `This page contains our carefully curated collection of high-quality customizable items from the ` + storeName + ` store.`
+
+		{
+			storePageText := `This page contains part of our carefully curated collection ` +
+				`of high-quality customizable items from the ` + storeName + ` store.`
+
+			if pageCount > 1 {
+				storePageText += "SCroll down and click through to the other pages to see our complete collection."
+			}
+
+			data["store_page_text"] = storePageText
+		}
 
 		itemsStartIndex := storeItemsPerPage * (pageNumber - 1)
 		itemsEndIndex := storeItemsPerPage * pageNumber
