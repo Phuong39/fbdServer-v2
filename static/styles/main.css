@@ -494,3 +494,7 @@ main > .store_page > .store_headings > .store_name_heading {
 	font-weight: 700;
 	font-size: 1.5rem;
 }
+
+main > .store_page > .store_headings > .store_page_text {
+	margin-top: 0.75rem;
+}

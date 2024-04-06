@@ -1,10 +1,6 @@
 {{ partial "partial/header" . }}
 
 <div class="store_page">
-	{{ if .store_page_text }}
-		<p>{{ .store_page_text }}</p>
-	{{ end }}
-
 	{{ if .store_name }}
 		<hgroup class="store_headings">
 				<h3 class="store_name_heading">
@@ -12,6 +8,10 @@
 						{{ .store_name }}
 					</a>
 				</h3>
+	
+			{{ if .store_page_text }}
+				<p class="store_page_text">{{ .store_page_text }}</p>
+			{{ end }}
 		</hgroup>
 	{{ end }}
 
