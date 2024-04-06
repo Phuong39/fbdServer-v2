@@ -19,7 +19,7 @@ var (
 		data := dataDefault()
 
 		data["page_title"] = data["site_title"]
-		data["page_description"] = `A random selection of items is listed here on ` + data["site_title"].(string) + `.`
+		data["page_description"] = `A random selection of high-quality customizable items is listed here on ` + data["site_title"].(string) + `.`
 
 		items, err := model.ItemMultipleAtRandom(120)
 		if err != nil {
