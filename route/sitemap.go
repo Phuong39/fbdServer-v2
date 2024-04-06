@@ -70,9 +70,10 @@ var (
 			buffer.WriteString(`<sitemap>`)
 			buffer.WriteString(`<loc>https://` + siteDomain + `/sitemap/` + strconv.Itoa(i) + `/sub.xml</loc>`)
 			buffer.WriteString(`</sitemap>`)
+			buffer.WriteByte('\n')
 		}
 
-		buffer.WriteString("\n" + `</sitemapindex>`)
+		buffer.WriteString(`</sitemapindex>`)
 
 		w.WriteHeader(http.StatusOK)
 		w.Write(buffer.Bytes())

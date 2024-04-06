@@ -57,6 +57,7 @@ var (
 					buffer.WriteString(path)
 					buffer.WriteString(`</loc>`)
 					buffer.WriteString(`</url>`)
+					buffer.WriteByte('\n')
 
 					urlCount++
 				}
@@ -68,7 +69,7 @@ var (
 			return
 		}
 
-		buffer.WriteString("\n" + `</urlset>`)
+		buffer.WriteString(`</urlset>`)
 
 		w.WriteHeader(http.StatusOK)
 		w.Write(buffer.Bytes())
