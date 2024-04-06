@@ -1,5 +1,14 @@
 ((window, document, console) => {
 
+	const loadNextItems = () => {
+		const itemNextPlaceholderEls = document.querySelectorAll(".items .item_next_placeholder");
+
+		for (const el of itemNextPlaceholderEls) {
+			const distance = (el.offsetTop - document.body.scrollTop);
+			console.log("EL", el, distance, document.body.scrollTop, document.body.scrollHeight, el.offsetTop, el.scrollTop);
+		}
+	};
+
 	const convertFlagImagesToDivEls = () => {
 		const flagImageEls = document.querySelectorAll("main .international img.flag");
 
@@ -117,6 +126,10 @@
 			if (itemEls && itemEls.length > 0) {
 				window.addEventListener("resize", () => {
 					setMinHeightForItems(itemEls);
+				});
+
+				document.addEventListener("scroll", () => {
+					loadNextItems();
 				});
 
 				setMinHeightForItems(itemEls);

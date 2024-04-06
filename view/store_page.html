@@ -1,16 +1,15 @@
 {{ partial "partial/header" . }}
 
 <div class="store_page">
-	<hgroup class="store_headings">
-		{{ if .store_name }}
-			<h3 class="store_name_heading">
-				<a href="https://www.zazzle.com/store/{{ .store_name }}?{{ .referral_query_key }}={{ .referral_query_value }}" target="_blank">
-					{{ .store_name }}
-				</a>
-			</h3>
-		{{ end }}
-
-	</hgroup>
+	{{ if .store_name }}
+		<hgroup class="store_headings">
+				<h3 class="store_name_heading">
+					<a href="https://www.zazzle.com/store/{{ .store_name }}?{{ .referral_query_key }}={{ .referral_query_value }}" target="_blank">
+						{{ .store_name }}
+					</a>
+				</h3>
+		</hgroup>
+	{{ end }}
 
 	<div class="items">
 		{{ range $_, $item := .items }}
@@ -20,6 +19,10 @@
 					<img src="{{ $item.ImageURL }}" alt="{{ $item.Title }}" title="{{ $item.Title }}" />
 				</div>
 			</a>
+		{{ end }}
+		
+		{{ if (not .store_name) }}
+			<div class="item_next_placeholder"></div>
 		{{ end }}
 	</div>
 
