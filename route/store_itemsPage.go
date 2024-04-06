@@ -60,7 +60,7 @@ var (
 				`of high-quality customizable items from the ` + storeName + ` store.`
 
 			if pageCount > 1 {
-				storePageText += "Scroll down and click through to the other pages to see our complete collection."
+				storePageText += " Scroll down and click through to the other pages to see our complete collection."
 			}
 
 			data["store_page_text"] = storePageText
