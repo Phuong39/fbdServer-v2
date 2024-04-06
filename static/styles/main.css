@@ -233,7 +233,7 @@ main .items {
 		grid-template-columns: repeat(3, 1fr);
 	}
 
-	main .items .item > h1 {
+	main .items .item > .item_title {
 		background-color: var(--main-link-color) !important;
 		color: var(--sidebar-text-color) !important;
 	}
@@ -268,7 +268,7 @@ main .items .item::after {
 	z-index: -1;
 }
 
-main .items .item > h1 {
+main .items .item > .item_title {
 	display: block;
 	position: absolute;
 	top: 0;
@@ -287,7 +287,7 @@ main .items .item > h1 {
 	transition-timing-function: ease;
 }
 
-main .items .item:hover > h1 {
+main .items .item:hover > .item_title {
 	background-color: var(--main-link-color);
 	color: var(--sidebar-text-color);
 }

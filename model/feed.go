@@ -67,21 +67,3 @@ func FeedFind(url string) (feed *Feed, found bool, err error) {
 
 	return
 }
-
-func (f *Feed) Save() (err error) {
-	key := FeedKey(f.Url)
-	value, err := json.Marshal(f)
-	if err != nil {
-		return
-	}
-
-	err = database.BadgerDB.Update(func(txn *badger.Txn) error {
-		entry := badger.NewEntry(key, value).WithTTL(time.Hour * 24 * 7 * 4) // four weeks
-		return txn.SetEntry(entry)
-	})
-	if err != nil {
-		return
-	}
-
-	return
-}

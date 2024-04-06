@@ -1,7 +1,6 @@
 package model
 
 import (
-	"encoding/json"
 	"fmt"
 	"html/template"
 	"log"
@@ -13,12 +12,9 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/dgraph-io/badger/v4"
 	"github.com/mmcdole/gofeed"
-	"github.com/theTardigrade/fbdServer-v2/database"
 	"github.com/theTardigrade/fbdServer-v2/environment"
 	"github.com/theTardigrade/fbdServer-v2/random"
-	hash "github.com/theTardigrade/golang-hash"
 	tasks "github.com/theTardigrade/golang-tasks"
 )
 
@@ -114,7 +110,7 @@ func itemsDownloadFromRemoteStore(storeName string, pageNumber int, queryString 
 		if err != nil {
 			return
 		}
-		if localFeedFound && time.Since(localFeed.LastDownloadTime) < time.Hour*24*5 {
+		if localFeedFound && time.Since(localFeed.LastDownloadTime) < time.Hour*24 {
 			return
 		}
 
@@ -238,50 +234,22 @@ func itemParseFromRemoteStore(rawItem *gofeed.Item, storeName string) (err error
 		}
 	}
 
-	var hashedGUID string
+	item := ItemNew(
+		storeName,
+		parsedLinkURL.String(),
+		parsedImageURL.String(),
+		guid,
+		title,
+		description,
+		keywords,
+		*publishTime,
+		price,
+	)
 
-	{
-		hashedGUID = strconv.FormatUint(uint64(hash.Uint32String(guid)), 16)
-
-		for i := len(hashedGUID); i < 4; i++ {
-			hashedGUID = "0" + hashedGUID
-		}
-
-		hashedGUID = hashedGUID[len(hashedGUID)-4:]
-
-		hashedGUID += strconv.FormatUint(hash.Uint64String(guid), 16)
-	}
-
-	item := Item{
-		StoreName:   storeName,
-		LinkURL:     parsedLinkURL.String(),
-		ImageURL:    parsedImageURL.String(),
-		GUID:        guid,
-		HashedGUID:  hashedGUID,
-		Title:       title,
-		Description: description,
-		Keywords:    keywords,
-		PublishTime: *publishTime,
-		SetTime:     time.Now().UTC(),
-		Price:       price,
-	}
-
-	itemJSON, err := json.Marshal(item)
+	err = item.Save()
 	if err != nil {
 		return
 	}
-
-	itemKey := ItemKey(item.HashedGUID)
-
-	err = database.BadgerDB.Update(func(txn *badger.Txn) error {
-		entry := badger.NewEntry(itemKey, itemJSON) //.WithTTL(time.Hour * 24 * 7 * 26) // half a year
-		return txn.SetEntry(entry)
-	})
-
-	itemKeyString := string(itemKey)
-
-	itemAddToKeyMapAndSlice(itemKeyString)
-	storeAddToItemsMap(item.StoreName, itemKeyString)
 
 	// if foundItem {
 	// 	// err = dbItem.Update(

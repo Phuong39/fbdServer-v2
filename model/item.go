@@ -4,11 +4,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"html/template"
+	"strconv"
 	"time"
 
 	"github.com/dgraph-io/badger/v4"
 	"github.com/theTardigrade/fbdServer-v2/database"
 	"github.com/theTardigrade/fbdServer-v2/random"
+	hash "github.com/theTardigrade/golang-hash"
 )
 
 type Item struct {
@@ -23,6 +25,44 @@ type Item struct {
 	PublishTime time.Time       `json:"p"`
 	SetTime     time.Time       `json:"s"`
 	Price       uint64          `json:"c"` // US cents
+}
+
+func ItemNew(
+	storeName, linkURL, imageURL, guid string,
+	title, description template.HTML,
+	keywords []template.HTML,
+	publishTime time.Time,
+	price uint64,
+) (item *Item) {
+	var hashedGUID string
+
+	{
+		hashedGUID = strconv.FormatUint(uint64(hash.Uint32String(guid)), 16)
+
+		for i := len(hashedGUID); i < 4; i++ {
+			hashedGUID = "0" + hashedGUID
+		}
+
+		hashedGUID = hashedGUID[len(hashedGUID)-4:]
+
+		hashedGUID += strconv.FormatUint(hash.Uint64String(guid), 16)
+	}
+
+	item = &Item{
+		StoreName:   storeName,
+		LinkURL:     linkURL,
+		ImageURL:    imageURL,
+		GUID:        guid,
+		HashedGUID:  hashedGUID,
+		Title:       title,
+		Description: description,
+		Keywords:    keywords,
+		PublishTime: publishTime,
+		SetTime:     time.Now().UTC(),
+		Price:       price,
+	}
+
+	return
 }
 
 const (

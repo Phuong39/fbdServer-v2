@@ -21,7 +21,7 @@
 		{{ range $_, $item := .items }}
 			<a href="/store/{{ $item.StoreName }}/item/{{ $item.HashedGUID }}">
 				<div class="item">
-					<h1>{{ $item.Title }}</h1>
+					<h3 class="item_title">{{ $item.Title }}</h3>
 					<img src="{{ $item.ImageURL }}" alt="{{ $item.Title }}" title="{{ $item.Title }}" />
 				</div>
 			</a>
