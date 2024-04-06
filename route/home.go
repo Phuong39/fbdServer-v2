@@ -27,10 +27,7 @@ var (
 		}
 		data["items"] = items
 
-		err = template.Views.ExecuteTemplate(w, "store_page", "main", data)
-		if err != nil {
-			panic(err)
-		}
+		template.Views.ExecuteTemplate(w, "store_page", "main", data)
 
 		// var output bytes.Buffer
 

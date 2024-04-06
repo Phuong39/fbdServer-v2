@@ -16,9 +16,6 @@ var (
 
 		w.WriteHeader(http.StatusInternalServerError)
 
-		err := template.Views.ExecuteTemplate(w, "serverError", "main", data)
-		if err != nil {
-			panic(err)
-		}
+		template.Views.ExecuteTemplate(w, "serverError", "main", data)
 	})
 )

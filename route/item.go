@@ -92,10 +92,7 @@ var (
 
 		data["item_escaped_keywords"] = itemEscapedKeywords
 
-		err = template.Views.ExecuteTemplate(w, "item", "main", data)
-		if err != nil {
-			panic(err)
-		}
+		template.Views.ExecuteTemplate(w, "item", "main", data)
 	})
 )
 

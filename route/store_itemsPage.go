@@ -88,10 +88,7 @@ var (
 			data["next_page_link"] = `/store/` + storeName + `/items/page/` + strconv.Itoa(nextPageNumber)
 		}
 
-		err = template.Views.ExecuteTemplate(w, "store_page", "main", data)
-		if err != nil {
-			panic(err)
-		}
+		template.Views.ExecuteTemplate(w, "store_page", "main", data)
 	})
 )
 

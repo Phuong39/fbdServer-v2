@@ -23,10 +23,7 @@ var (
 
 		w.WriteHeader(http.StatusNotFound)
 
-		err := template.Views.ExecuteTemplate(w, "notFound", "main", data)
-		if err != nil {
-			panic(err)
-		}
+		template.Views.ExecuteTemplate(w, "notFound", "main", data)
 	})
 )
 
