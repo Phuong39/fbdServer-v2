@@ -68,4 +68,6 @@ const (
 
 func init() {
 	options.Options.Routes.Get[homePath] = homeGetHandler
+
+	sitemapPathAdd(homePath)
 }
