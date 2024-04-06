@@ -54,6 +54,7 @@ var (
 		data["page_number"] = pageNumber
 		data["page_description"] = `High-quality customizable items from the ` + storeName + ` store are listed here on ` + data["site_title"].(string) +
 			`. Page ` + pageNumberRaw + ` of ` + strconv.Itoa(pageCount) + `.`
+		data["store_page_text"] = `This page contains a selection of high-quality customizable items from the ` + storeName + ` store.`
 
 		itemsStartIndex := storeItemsPerPage * (pageNumber - 1)
 		itemsEndIndex := storeItemsPerPage * pageNumber
