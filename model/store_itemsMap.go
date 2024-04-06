@@ -1,6 +1,9 @@
 package model
 
-import "sync"
+import (
+	"sort"
+	"sync"
+)
 
 var (
 	storeItemsMap      = make(map[string]*[]string)
@@ -25,6 +28,8 @@ func storeAddToItemsMap(store, itemKey string) {
 
 		if shouldAdd {
 			*itemKeysSlice = append(*itemKeysSlice, itemKey)
+
+			sort.Strings(*itemKeysSlice)
 		}
 	}
 }
