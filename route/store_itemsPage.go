@@ -1,6 +1,7 @@
 package route
 
 import (
+	htmlTemplate "html/template"
 	"math"
 	"net/http"
 	"strconv"
@@ -56,11 +57,17 @@ var (
 			`. Page ` + pageNumberRaw + ` of ` + strconv.Itoa(pageCount) + `.`
 
 		{
-			storePageText := `This page contains part of our carefully curated collection ` +
-				`of high-quality customizable items from the ` + storeName + ` store.`
+			storePageText := htmlTemplate.HTML(`This page contains `)
 
 			if pageCount > 1 {
-				storePageText += " Scroll down and click through to the other pages to see our complete collection."
+				storePageText += htmlTemplate.HTML(`part of `)
+			}
+
+			storePageText += htmlTemplate.HTML(`our carefully curated collection ` +
+				`of high-quality customizable items from the ` + storeName + ` store.`)
+
+			if pageCount > 1 {
+				storePageText += htmlTemplate.HTML("<br />Scroll down and click through to the other pages to see our complete collection.")
 			}
 
 			data["store_page_text"] = storePageText
