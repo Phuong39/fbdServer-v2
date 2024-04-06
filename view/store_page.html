@@ -1,13 +1,15 @@
 {{ partial "partial/header" . }}
 
 <div class="store_page">
-	{{ if .store_name }}
+	{{ if (or .store_name .store_page_text) }}
 		<hgroup class="store_headings">
+			{{ if .store_name }}
 				<h3 class="store_name_heading">
 					<a href="https://www.{{ .referral_site_domain }}/store/{{ .store_name }}?{{ .referral_query_key }}={{ .referral_query_value }}" target="_blank" rel="sponsored">
 						{{ .store_name }}
 					</a>
 				</h3>
+			{{ end }}
 	
 			{{ if .store_page_text }}
 				<p class="store_page_text">{{ .store_page_text }}</p>

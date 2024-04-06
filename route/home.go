@@ -20,6 +20,7 @@ var (
 
 		data["page_title"] = data["site_title"]
 		data["page_description"] = `A random selection of high-quality customizable items is listed here on ` + data["site_title"].(string) + `.`
+		data["store_page_text"] = `This page contains a random selection of high-quality customizable items from all of our stores.`
 
 		items, err := model.ItemMultipleAtRandom(120)
 		if err != nil {
