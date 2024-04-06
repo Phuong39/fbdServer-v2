@@ -69,6 +69,8 @@ var (
 			panic(err)
 		}
 
+		success = true
+
 		header := w.Header()
 
 		header.Set("Content-Type", staticMimeType(localPath))
@@ -78,8 +80,6 @@ var (
 		// if fileInfo.Size() < staticEtagFileSizeMin {
 		// 	useEtag = false
 		// }
-
-		success = true
 
 		// if useEtag {
 		// 	etag := datum.etag
