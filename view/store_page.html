@@ -4,7 +4,7 @@
 	{{ if .store_name }}
 		<hgroup class="store_headings">
 				<h3 class="store_name_heading">
-					<a href="https://www.zazzle.com/store/{{ .store_name }}?{{ .referral_query_key }}={{ .referral_query_value }}" target="_blank">
+					<a href="https://www.{{ .referral_site_domain }}/store/{{ .store_name }}?{{ .referral_query_key }}={{ .referral_query_value }}" target="_blank" rel="sponsored">
 						{{ .store_name }}
 					</a>
 				</h3>

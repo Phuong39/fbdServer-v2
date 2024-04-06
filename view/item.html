@@ -3,19 +3,19 @@
 <div class="item_profile">
 	<hgroup class="item_headings">
 		<h3 class="item_title_heading">
-			<a href="{{ .item.LinkURL }}" target="_blank">
+			<a href="{{ .item.LinkURL }}" target="_blank" rel="sponsored">
 				{{ .item.Title }}
 			</a>
 		</h3>
 
 		<h4 class="item_store_heading">
-			<a href="https://www.zazzle.com/store/{{ .item.StoreName }}?{{ .referral_query_key }}={{ .referral_query_value }}" target="_blank">
+			<a href="https://www.{{ .referral_site_domain }}/store/{{ .item.StoreName }}?{{ .referral_query_key }}={{ .referral_query_value }}" target="_blank" rel="sponsored">
 				{{ .item.StoreName }}
 			</a>
 		</h4>
 	</hgroup>
 
-	<a href="{{ .item.LinkURL }}" target="_blank">
+	<a href="{{ .item.LinkURL }}" target="_blank" rel="sponsored">
 		<img src="{{ .item.ImageURL }}" alt="{{ .item.Title }}" title="{{ .item.Title }}" />
 	</a>
 
@@ -23,7 +23,7 @@
 
 	<ul class="keywords">
 		{{ range $i, $kw := .item.Keywords }}
-			<li><a href="https://www.zazzle.com/s/{{ (index $.item_escaped_keywords $i) }}?{{ $.referral_query_key }}={{ $.referral_query_value }}" target="_blank">{{ $kw }}</a></li>
+			<li><a href="https://www.{{ referral_site_domain }}/s/{{ (index $.item_escaped_keywords $i) }}?{{ $.referral_query_key }}={{ $.referral_query_value }}" target="_blank" rel="sponsored">{{ $kw }}</a></li>
 		{{ end }}
 	</ul>
 
@@ -42,12 +42,12 @@
 			<tbody>
 				<tr>
 					<td>
-						<a href="{{ .item.LinkURL }}" target="_blank">
+						<a href="{{ .item.LinkURL }}" target="_blank" rel="sponsored">
 							<img class="flag" src="/static/images/flags/us.webp" alt="National flag of the United States of America." />
 						</a>
 					</td>
 					<td>
-						<a href="{{ .item.LinkURL }}" target="_blank">
+						<a href="{{ .item.LinkURL }}" target="_blank" rel="sponsored">
 							United States of America
 							<br />
 							<small>(with international shipping)</small>
@@ -57,24 +57,24 @@
 				{{ if (and (not .store.OnlyUS) (not .item.OnlyUS)) }}
 					<tr>
 						<td>
-							<a href="{{ .item.LinkURLInternationalAU }}" target="_blank">
+							<a href="{{ .item.LinkURLInternationalAU }}" target="_blank" rel="sponsored">
 								<img class="flag" src="/static/images/flags/au.webp" alt="National flag of Australia." />
 							</a>
 						</td>
 						<td>
-							<a href="{{ .item.LinkURLInternationalAU }}" target="_blank">
+							<a href="{{ .item.LinkURLInternationalAU }}" target="_blank" rel="sponsored">
 								Australia
 							</a>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<a href="{{ .item.LinkURLInternationalBR }}" target="_blank">
+							<a href="{{ .item.LinkURLInternationalBR }}" target="_blank" rel="sponsored">
 								<img class="flag" src="/static/images/flags/br.webp" alt="National flag of Brazil." />
 							</a>
 						</td>
 						<td>
-							<a href="{{ .item.LinkURLInternationalBR }}" target="_blank">
+							<a href="{{ .item.LinkURLInternationalBR }}" target="_blank" rel="sponsored">
 								<span lang="pt">Brasil</span>
 								<br />
 								<small>[Brazil]</small>
@@ -83,24 +83,24 @@
 					</tr>
 					<tr>
 						<td>
-							<a href="{{ .item.LinkURLInternationalCA }}" target="_blank">
+							<a href="{{ .item.LinkURLInternationalCA }}" target="_blank" rel="sponsored">
 								<img class="flag" src="/static/images/flags/ca.webp" alt="National flag of Canada." />
 							</a>
 						</td>
 						<td>
-							<a href="{{ .item.LinkURLInternationalCA }}" target="_blank">
+							<a href="{{ .item.LinkURLInternationalCA }}" target="_blank" rel="sponsored">
 								Canada
 							</a>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<a href="{{ .item.LinkURLInternationalDE }}" target="_blank">
+							<a href="{{ .item.LinkURLInternationalDE }}" target="_blank" rel="sponsored">
 								<img class="flag" src="/static/images/flags/de.webp" alt="National flag of Germany." />
 							</a>
 						</td>
 						<td>
-							<a href="{{ .item.LinkURLInternationalDE }}" target="_blank">
+							<a href="{{ .item.LinkURLInternationalDE }}" target="_blank" rel="sponsored">
 								<span lang="de">Deutschland</span>
 								<br />
 								<small>[Germany]</small>
@@ -109,12 +109,12 @@
 					</tr>
 					<tr>
 						<td>
-							<a href="{{ .item.LinkURLInternationalES }}" target="_blank">
+							<a href="{{ .item.LinkURLInternationalES }}" target="_blank" rel="sponsored">
 								<img class="flag" src="/static/images/flags/es.png" alt="National flag of Spain." />
 							</a>
 						</td>
 						<td>
-							<a href="{{ .item.LinkURLInternationalES }}" target="_blank">
+							<a href="{{ .item.LinkURLInternationalES }}" target="_blank" rel="sponsored">
 								<span lang="es">España</span>
 								<br />
 								<small>[Spain]</small>
@@ -123,24 +123,24 @@
 					</tr>
 					<tr>
 						<td>
-							<a href="{{ .item.LinkURLInternationalFR }}" target="_blank">
+							<a href="{{ .item.LinkURLInternationalFR }}" target="_blank" rel="sponsored">
 								<img class="flag" src="/static/images/flags/fr.png" alt="National flag of France." />
 							</a>
 						</td>
 						<td>
-							<a href="{{ .item.LinkURLInternationalFR }}" target="_blank">
+							<a href="{{ .item.LinkURLInternationalFR }}" target="_blank" rel="sponsored">
 								France
 							</a>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<a href="{{ .item.LinkURLInternationalJP }}" target="_blank">
+							<a href="{{ .item.LinkURLInternationalJP }}" target="_blank" rel="sponsored">
 								<img class="flag" src="/static/images/flags/jp.png" alt="National flag of Japan." />
 							</a>
 						</td>
 						<td>
-							<a href="{{ .item.LinkURLInternationalJP }}" target="_blank">
+							<a href="{{ .item.LinkURLInternationalJP }}" target="_blank" rel="sponsored">
 								<span lang="jp">日本</span>
 								<br />
 								<small>[Japan]</small>
@@ -149,24 +149,24 @@
 					</tr>
 					<tr>
 						<td>
-							<a href="{{ .item.LinkURLInternationalNZ }}" target="_blank">
+							<a href="{{ .item.LinkURLInternationalNZ }}" target="_blank" rel="sponsored">
 								<img class="flag" src="/static/images/flags/nz.png" alt="National flag of New Zealand." />
 							</a>
 						</td>
 						<td>
-							<a href="{{ .item.LinkURLInternationalNZ }}" target="_blank">
+							<a href="{{ .item.LinkURLInternationalNZ }}" target="_blank" rel="sponsored">
 								New Zealand
 							</a>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<a href="{{ .item.LinkURLInternationalGB }}" target="_blank">
+							<a href="{{ .item.LinkURLInternationalGB }}" target="_blank" rel="sponsored">
 								<img class="flag" src="/static/images/flags/gb.webp" alt="National flag of the United Kingdom of Great Britain and Northern Ireland." />
 							</a>
 						</td>
 						<td>
-							<a href="{{ .item.LinkURLInternationalGB }}" target="_blank">
+							<a href="{{ .item.LinkURLInternationalGB }}" target="_blank" rel="sponsored">
 								United Kingdom
 							</a>
 						</td>
