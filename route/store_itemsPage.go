@@ -63,7 +63,7 @@ var (
 				storePageText += htmlTemplate.HTML(`part of `)
 			}
 
-			storePageText += htmlTemplate.HTML(`our carefully curated collection ` +
+			storePageText += htmlTemplate.HTML(`our collection ` +
 				`of high-quality customizable items from the ` + storeName + ` store.`)
 
 			if pageCount > 1 {
