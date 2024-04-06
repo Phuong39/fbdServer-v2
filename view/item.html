@@ -23,7 +23,7 @@
 
 	<ul class="keywords">
 		{{ range $i, $kw := .item.Keywords }}
-			<li><a href="https://www.{{ referral_site_domain }}/s/{{ (index $.item_escaped_keywords $i) }}?{{ $.referral_query_key }}={{ $.referral_query_value }}" target="_blank" rel="sponsored">{{ $kw }}</a></li>
+			<li><a href="https://www.{{ .referral_site_domain }}/s/{{ (index $.item_escaped_keywords $i) }}?{{ $.referral_query_key }}={{ $.referral_query_value }}" target="_blank" rel="sponsored">{{ $kw }}</a></li>
 		{{ end }}
 	</ul>
 
