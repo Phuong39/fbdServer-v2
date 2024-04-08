@@ -57,6 +57,7 @@ var (
 		data["twitter_card_image"] = item.ImageURL
 		data["twitter_card_title"] = html.UnescapeString(string(item.Title))
 		data["page_title"] = data["twitter_card_title"].(string) + " | " + data["site_title"].(string)
+		data["page_canonical_link"] = `https://` + data["site_domain"].(string) + `/store/` + item.StoreName + `/item/` + item.HashedGUID
 
 		{ // create page_description
 			description := html.UnescapeString(string(item.Description))

@@ -55,6 +55,7 @@ var (
 		data["page_number"] = pageNumber
 		data["page_description"] = `High-quality customizable items from the ` + storeName + ` store are listed here on ` + data["site_title"].(string) +
 			`. Page ` + pageNumberRaw + ` of ` + strconv.Itoa(pageCount) + `.`
+		data["page_canonical_link"] = `https://` + data["site_domain"].(string) + `/store/` + storeName + `/items/page/` + pageNumberRaw
 
 		{
 			storePageText := htmlTemplate.HTML(`This page contains `)
@@ -125,10 +126,12 @@ func init() {
 		if err != nil {
 			panic(err)
 		}
-		for i, p := 0, 1; i < len(items); i += storeItemsPerPage {
-			sitemapPathAdd(`/store/` + s.Name + `/items/page/` + strconv.Itoa(p))
-
-			p++
+		if len(items) > 0 {
+			sitemapPathAdd(`/store/` + s.Name + `/items/page/1`)
 		}
+		// for i, p := 0, 1; i < len(items); i += storeItemsPerPage {
+		// 	sitemapPathAdd(`/store/` + s.Name + `/items/page/` + strconv.Itoa(p))
+		// 	p++
+		// }
 	}
 }
